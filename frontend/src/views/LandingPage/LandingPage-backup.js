@@ -34,7 +34,7 @@ export default function LandingPage(props) {
       <Header
         color="transparent"
         routes={dashboardRoutes}
-        brand="My Gym"
+        brand="Material Kit React"
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
@@ -47,12 +47,12 @@ export default function LandingPage(props) {
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>Tone your body with us.</h1>
+              <h1 className={classes.title}>Your Story Starts With Us.</h1>
               <h4>
-                Everybody needs to take care of their body. With us, you can build, 
-                tone, and tweak your shape in a cool and friendly environment.
-                Work out on your own, with your mates, or with our specialized coaches.
-                Join our classes for a fun way to get fit.
+                Every landing page needs a small description after the big bold
+                title, that{"'"}s why we added this text here. Add here all the
+                information that can make you or your product create the first
+                impression.
               </h4>
               <br />
               <Button
@@ -63,7 +63,7 @@ export default function LandingPage(props) {
                 rel="noopener noreferrer"
               >
                 <i className="fas fa-play" />
-                Inquire More
+                Watch video
               </Button>
             </GridItem>
           </GridContainer>

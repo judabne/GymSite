@@ -3,6 +3,7 @@ import {
   dangerColor,
   successColor,
   defaultFont,
+  infoColor
 } from "assets/jss/material-kit-react.js";
 
 const customInputStyle = {
@@ -23,6 +24,11 @@ const customInputStyle = {
   underlineError: {
     "&:after": {
       borderColor: dangerColor,
+    },
+  },
+  underlineInfo: {
+    "&:after": {
+      borderColor: infoColor,
     },
   },
   underlineSuccess: {

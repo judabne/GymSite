@@ -25,6 +25,8 @@ export default function CustomInput(props) {
     white,
     inputRootCustomClasses,
     success,
+    underlineInfo,
+    underlineSuccess
   } = props;
 
   const labelClasses = classNames({
@@ -33,9 +35,10 @@ export default function CustomInput(props) {
   });
   const underlineClasses = classNames({
     [classes.underlineError]: error,
-    [classes.underlineSuccess]: success && !error,
+    [classes.underlineSuccess]: (underlineSuccess || success) && !error,
     [classes.underline]: true,
     [classes.whiteUnderline]: white,
+    [classes.underlineInfo]: underlineInfo
   });
   const marginTop = classNames({
     [inputRootCustomClasses]: inputRootCustomClasses !== undefined,
@@ -88,4 +91,6 @@ CustomInput.propTypes = {
   error: PropTypes.bool,
   success: PropTypes.bool,
   white: PropTypes.bool,
+  underlineInfo: PropTypes.bool,
+  underlineSuccess: PropTypes.bool //to underline green without making the wholething green
 };
