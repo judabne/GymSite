@@ -32,7 +32,6 @@ export default function ContactPage(props) {
       <Header
         absolute
         color="transparent"
-        brand="Material Kit React"
         rightLinks={<HeaderLinks />}
         {...rest}
       />
@@ -54,7 +53,7 @@ export default function ContactPage(props) {
                   </CardHeader>
                   <CardBody>
                     <CustomInput
-                      labelText="First Name..."
+                      labelText="First Name"
                       id="first"
                       formControlProps={{
                         fullWidth: true,
@@ -65,13 +64,24 @@ export default function ContactPage(props) {
                       underlineSuccess
                     />
                     <CustomInput
-                      labelText="Email..."
+                      labelText="Email"
                       id="email"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
                         type: "email",
+                      }}
+                      underlineSuccess
+                    />
+                    <CustomInput
+                      labelText="Phone"
+                      id="phone"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "tel"
                       }}
                       underlineSuccess
                     />
