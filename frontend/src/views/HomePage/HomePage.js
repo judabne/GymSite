@@ -19,6 +19,7 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // Sections for this page
 import BranchesSection from "./Sections/BranchesSection.js";
+import SectionCarousel from "views/Components/Sections/SectionCarousel.js";
 
 const dashboardRoutes = [];
 
@@ -40,13 +41,13 @@ export default function LandingPage(props) {
         }}
         {...rest}
       />
-      <Parallax filter image={require("assets/img/landing-bg.jpg").default}>
+      <Parallax filter image={require("assets/img/treadmills-background.jpg").default} className="fullHeight">
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>Tone your body with us.</h1>
               <h4>
-                Everybody needs to take care of their body. With us, you can build, 
+                Everybody needs to take care of their body. With us, you can build,
                 tone, and tweak your shape in a cool and friendly environment.
                 Work out on your own, with your mates, or with our specialized coaches.
                 Join our classes for a fun way to get fit.
@@ -65,6 +66,7 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax>
+      <SectionCarousel />
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <BranchesSection />

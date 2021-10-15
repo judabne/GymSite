@@ -7,12 +7,12 @@ import "assets/scss/material-kit-react.scss?v=1.10.0";
 
 // pages for this product
 import Components from "views/Components/Components.js";
-import LandingPage from "views/LandingPage/LandingPage.js";
 import ProfilePage from "views/ProfilePage/ProfilePage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 import ContactPage from "views/ContactPage/ContactPage";
 import WorkPage from "views/WorkPage/WorkPage";
 import AboutPage from "views/AboutPage/AboutPage";
+import HomePage from "views/HomePage/HomePage"
 
 var hist = createBrowserHistory();
 
@@ -23,10 +23,10 @@ ReactDOM.render(
       <Route path="/components" component={Components} />
       <Route path="/contact" component={ContactPage} />
       <Route path="/jobs" component={WorkPage} />
-      <Route path="/landing-page" component={LandingPage} />
+      <Route path="/home" component={HomePage} />
       <Route path="/profile-page" component={ProfilePage} />
       <Route path="/login-page" component={LoginPage} />
-      <Route path="/" component={LandingPage} />
+      <Route path="/" component={HomePage} />
     </Switch>
   </Router>,
   document.getElementById("root")
