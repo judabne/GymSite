@@ -12,12 +12,14 @@ import ProfilePage from "views/ProfilePage/ProfilePage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 import ContactPage from "views/ContactPage/ContactPage";
 import WorkPage from "views/WorkPage/WorkPage";
+import AboutPage from "views/AboutPage/AboutPage";
 
 var hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
+      <Route path="/about" component={AboutPage} />
       <Route path="/components" component={Components} />
       <Route path="/contact" component={ContactPage} />
       <Route path="/jobs" component={WorkPage} />

@@ -46,7 +46,7 @@ export default function LoginPage(props) {
             >
                 <div className={classes.container}>
                     {/* */}
-                    <Card className={classes[cardAnimaton] + "fullWidth"}>
+                    <Card className={classes[cardAnimaton]}>
                         <form className={classes.form}>
                             <GridContainer justify="center">
                                 <GridItem xs={12} sm={12} md={4}>
@@ -59,7 +59,13 @@ export default function LoginPage(props) {
                             <CardBody>
                                 <form>
                                     <GridContainer>
-                                        <GridItem xs={12} sm={12} md={6}>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <h4 className={classes.description} align="justify">
+                                                Hey. We are glad you want to be part of our team. Please fill some info
+                                                below and we will get back to you soon.
+                                            </h4>
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={4}>
                                             <CustomInput
                                                 labelText="Your Name"
                                                 id="name"
@@ -69,29 +75,47 @@ export default function LoginPage(props) {
                                                 underlineInfo
                                             />
                                         </GridItem>
-                                        <GridItem xs={12} sm={12} md={6}>
+                                        <GridItem xs={12} sm={6} md={4}>
                                             <CustomInput
                                                 labelText="Your Email"
                                                 id="email"
                                                 formControlProps={{
                                                     fullWidth: true,
                                                 }}
+                                                inputProps={{
+                                                    type: "email"
+                                                }}
                                                 underlineInfo
                                             />
                                         </GridItem>
-                                        <CustomInput
-                                            labelText="Your Message"
-                                            id="message"
-                                            formControlProps={{
-                                                fullWidth: true,
-                                                className: classes.textArea,
-                                            }}
-                                            inputProps={{
-                                                multiline: true,
-                                                rows: 5,
-                                            }}
-                                            underlineInfo
-                                        />
+                                        <GridItem xs={12} sm={6} md={4}>
+                                            <CustomInput
+                                                labelText="Your Phone"
+                                                id="phone"
+                                                formControlProps={{
+                                                    fullWidth: true,
+                                                }}
+                                                inputProps={{
+                                                    type: "tel"
+                                                }}
+                                                underlineInfo
+                                            />
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <CustomInput
+                                                labelText="Your Message"
+                                                id="message"
+                                                formControlProps={{
+                                                    fullWidth: true,
+                                                    className: classes.textArea,
+                                                }}
+                                                inputProps={{
+                                                    multiline: true,
+                                                    rows: 5,
+                                                }}
+                                                underlineInfo
+                                            />
+                                        </GridItem>
                                     </GridContainer>
                                 </form>
                             </CardBody>
