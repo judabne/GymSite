@@ -1,5 +1,6 @@
 {
   "name": "material-kit-react",
+  "proxy": "http://127.0.0.1:5000",
   "version": "1.10.0",
   "description": "Material Kit React. Coded by Creative Tim",
   "private": true,
@@ -8,6 +9,7 @@
     "@babel/core": "7.14.0",
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
+    "axios": "^0.23.0",
     "classnames": "2.3.1",
     "moment": "2.29.1",
     "node-sass": "6.0.0",
