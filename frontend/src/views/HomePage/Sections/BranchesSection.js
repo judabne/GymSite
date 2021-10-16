@@ -16,19 +16,20 @@ import CardFooter from "components/Card/CardFooter.js";
 
 import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
 
-import team1 from "assets/img/faces/avatar.jpg";
-import team2 from "assets/img/faces/christian.jpg";
-import team3 from "assets/img/faces/kendall.jpg";
-
 const useStyles = makeStyles(styles);
 
 export default function BranchesSection() {
   const classes = useStyles();
   const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
+    classes.imgFluid,
+    
+    classes.imgRounded,
+    classes.circularImg
   );
+  const circular = classNames(
+    classes.circular,
+    classes.imgRaised,
+  )
 
   const [branches, setBranches] = useState([]);
 
@@ -45,9 +46,9 @@ export default function BranchesSection() {
     };
   }, [])
   return (
-    
+
     <div className={classes.section}>
-      
+
       <h2 className={classes.title}>Our Branches... All over the place</h2>
       <h5 className={classes.description}>
         Whether you{"'"}re working, finalizing official documents at the capital,
@@ -61,7 +62,10 @@ export default function BranchesSection() {
               <GridItem xs={12} sm={12} md={4} key={branch._id}>
                 <Card plain>
                   <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                    <img src={branch.image} alt="..." className={imageClasses} />
+                    <div className={circular}>
+                      <img src={branch.image} alt={branch.city + " image"} className={imageClasses} />
+                    </div>
+
                   </GridItem>
                   <h4 className={classes.cardTitle}>
                     {branch.city}

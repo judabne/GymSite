@@ -39,6 +39,17 @@ const imagesStyles = {
     left: "0",
     padding: "1.25rem",
   },
+  circular: { /* need to give parent container equal width and height*/
+    margin: "auto",
+    maxWidth: "100%",
+    aspectRatio: "1",
+    borderRadius: "50%",
+    overflow: "hidden",
+  },
+  circularImg:{
+    width: "100%",
+    height: "100%"
+  }
 };
 
 export default imagesStyles;
