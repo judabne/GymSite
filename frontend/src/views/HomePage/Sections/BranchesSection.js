@@ -37,8 +37,6 @@ export default function BranchesSection() {
     const fetchData = async () => {
       const { data } = await axios.get("/api/branches");
       setBranches(data);
-      console.log("finished fetching");
-      console.log(branches);
     }
     fetchData();
     return () => {
@@ -59,13 +57,12 @@ export default function BranchesSection() {
         <GridContainer>
           {
             branches.map(branch =>
-              <GridItem xs={12} sm={12} md={4} key={branch._id}>
+              <GridItem key={branch._id} xs={12} sm={6} md={4} >
                 <Card plain>
-                  <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
+                  <GridItem xs={12} sm={12} md={7} className={classes.itemGrid}>
                     <div className={circular}>
                       <img src={branch.image} alt={branch.city + " image"} className={imageClasses} />
                     </div>
-
                   </GridItem>
                   <h4 className={classes.cardTitle}>
                     {branch.city}

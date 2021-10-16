@@ -34,13 +34,19 @@ export default {
             _id: "6",
             city: "Arbet Kozhaya",
             description: "This is our smallest branch at the founder's hometown. Overlooking Kadisha valley, this branch offers you a relaxing workout in nature.",
-            image: "http://www.the7villagesforest.com/wp-content/uploads/2012/08/ser1.png"
+            image: "https://live.staticflickr.com/8112/8570972137_f398147154_b.jpg"
         },
         {
             _id: "7",
             city: "Hammana",
             description: "With all the positive vibes in this town, motivation to workout is at its highest.",
             image: "https://pbs.twimg.com/media/EygsTAPXIAAdPbF.jpg"
+        },
+        {
+            id: "8",
+            city: "Saida",
+            description: "You ate lots of sweets while visiting the city? Visit us and burn up those calories.",
+            image: "https://strongcitiesnetwork.org/en/wp-content/uploads/sites/5/2019/02/Saida-pic.jpg"
         }
     ]
 }

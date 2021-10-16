@@ -1,13 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -21,13 +18,14 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
+
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+export default function RegisterPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
@@ -57,10 +55,30 @@ export default function LoginPage(props) {
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
+                    <h4>Create an account</h4>
                   </CardHeader>
-                  <p className={classes.divider}><Link to="/register">New here? Create an account</Link></p>
+                  <p className={classes.divider}><Link to="/login">Have an account? click here</Link></p>
                   <CardBody>
+                    <CustomInput
+                      labelText="First Name..."
+                      id="first"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "text",
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Last Name..."
+                      id="last"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "text",
+                      }}
+                    />
                     <CustomInput
                       labelText="Email..."
                       id="email"
@@ -82,10 +100,21 @@ export default function LoginPage(props) {
                         autoComplete: "off",
                       }}
                     />
+                    <CustomInput
+                      labelText="Confirm Password"
+                      id="rePass"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "password",
+                        autoComplete: "off",
+                      }}
+                    />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button simple color="primary" size="lg">
-                      Sign in
+                      Get started
                     </Button>
                   </CardFooter>
                 </form>
