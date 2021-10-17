@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { signin } from "actions/userActions";
+import { useDispatch , useSelector} from "react-redux";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,12 +18,11 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-
+import Danger from "components/Typography/Danger";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-
 import image from "assets/img/bg7.jpg";
-import { signin } from "actions/userActions";
-import { useDispatch , useSelector} from "react-redux";
+
+
 
 const useStyles = makeStyles(styles);
 
@@ -51,6 +52,7 @@ export default function LoginPage(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log("email " + email);
     dispatch(signin(email, password));
   }
   return (
@@ -70,17 +72,17 @@ export default function LoginPage(props) {
           backgroundPosition: "top center",
         }}
       >
-        <div className={classes.container} onSubmit={submitHandler}>
+        <div className={classes.container} >
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
-                <form className={classes.form}>
+                <form onSubmit={submitHandler} className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>Login</h4>
                   </CardHeader>
                   <p className={classes.divider}><Link to="/register">New here? Create an account</Link></p>
-                  {loading && <p>Loading...</p>}
-                  {error && <p>{error}</p>}
+                  {loading && <p className={classes.divider}>Loading...</p>}
+                  {error && <p className={classes.divider}><Danger>Error Signing in</Danger></p>}
                   <CardBody>
                     <CustomInput
                       labelText="Email"
@@ -90,8 +92,9 @@ export default function LoginPage(props) {
                       }}
                       inputProps={{
                         type: "email",
+                        onChange: (e) => setEmail(e.target.value)
                       }}
-                      onChange={(e) => setEmail(e.target.value)}
+                      
                     />
                     <CustomInput
                       labelText="Password"
@@ -102,12 +105,13 @@ export default function LoginPage(props) {
                       inputProps={{
                         type: "password",
                         autoComplete: "off",
+                        onChange: (e) => setPassword(e.target.value)
                       }}
-                      onChange={(e) => setPassword(e.target.value)}
+                      
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button simple color="primary" size="lg">
+                    <Button type="submit" simple color="primary" size="lg">
                       Sign in
                     </Button>
                   </CardFooter>

@@ -18,8 +18,6 @@ mongoose.connect(mongodbUrl, {
 const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);
-
-
 app.get("/api/branches", (req, res) => {
     res.send(data.branches);
 });

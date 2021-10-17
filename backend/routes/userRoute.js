@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/userModel';
+import { getToken } from '../util';
 
 const router = express.Router();
 
@@ -15,10 +16,33 @@ router.post("/signin",async (req, res) => {
             lastName: signinUser.lastName,
             email: signinUser.email,
             isAdmin: signinUser.isAdmin,
-            token: getToken(user)
+            token: getToken(signinUser)
         })
     } else {
         res.status(401).send({msg: 'Invalid email or password'})
+    }
+})
+
+router.post("/register",async (req, res) => {
+    console.log("REQ " + req.body.firstName);
+    const user = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password
+    });
+    const newUser = await user.save();
+    if(newUser){
+        res.send({
+            _id: newUser.id,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+            isAdmin: newUser.isAdmin,
+            token: getToken(newUser)
+        })
+    } else {
+        res.status(401).send({msg: 'Invalid user data'})
     }
 })
 
