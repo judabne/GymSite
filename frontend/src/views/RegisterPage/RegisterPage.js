@@ -60,7 +60,7 @@ export default function RegisterPage(props) {
                   <p className={classes.divider}><Link to="/login">Have an account? click here</Link></p>
                   <CardBody>
                     <CustomInput
-                      labelText="First Name..."
+                      labelText="First Name"
                       id="first"
                       formControlProps={{
                         fullWidth: true,
@@ -70,7 +70,7 @@ export default function RegisterPage(props) {
                       }}
                     />
                     <CustomInput
-                      labelText="Last Name..."
+                      labelText="Last Name"
                       id="last"
                       formControlProps={{
                         fullWidth: true,
@@ -80,7 +80,7 @@ export default function RegisterPage(props) {
                       }}
                     />
                     <CustomInput
-                      labelText="Email..."
+                      labelText="Email"
                       id="email"
                       formControlProps={{
                         fullWidth: true,

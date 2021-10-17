@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
+
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -24,16 +20,39 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 import image from "assets/img/bg7.jpg";
+import { signin } from "actions/userActions";
+import { useDispatch , useSelector} from "react-redux";
 
 const useStyles = makeStyles(styles);
 
 export default function LoginPage(props) {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const userSignin = useSelector(state => state.userSignin);
+  const { loading, userInfo, error } = userSignin;
+  const dispatch = useDispatch();
+
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 200);
   const classes = useStyles();
   const { ...rest } = props;
+
+  useEffect(() => {
+    if(userInfo) {
+      props.history.push("/");
+    }
+    return () => {
+
+    };
+  }, [userInfo]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(signin(email, password));
+  }
   return (
     <div>
       <Header
@@ -51,7 +70,7 @@ export default function LoginPage(props) {
           backgroundPosition: "top center",
         }}
       >
-        <div className={classes.container}>
+        <div className={classes.container} onSubmit={submitHandler}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
@@ -60,9 +79,11 @@ export default function LoginPage(props) {
                     <h4>Login</h4>
                   </CardHeader>
                   <p className={classes.divider}><Link to="/register">New here? Create an account</Link></p>
+                  {loading && <p>Loading...</p>}
+                  {error && <p>{error}</p>}
                   <CardBody>
                     <CustomInput
-                      labelText="Email..."
+                      labelText="Email"
                       id="email"
                       formControlProps={{
                         fullWidth: true,
@@ -70,6 +91,7 @@ export default function LoginPage(props) {
                       inputProps={{
                         type: "email",
                       }}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <CustomInput
                       labelText="Password"
@@ -81,6 +103,7 @@ export default function LoginPage(props) {
                         type: "password",
                         autoComplete: "off",
                       }}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>

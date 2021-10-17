@@ -14,22 +14,26 @@ import ContactPage from "views/ContactPage/ContactPage";
 import WorkPage from "views/WorkPage/WorkPage";
 import AboutPage from "views/AboutPage/AboutPage";
 import HomePage from "views/HomePage/HomePage";
+import { Provider } from "react-redux";
+import store from './store';
 
 var hist = createBrowserHistory();
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route path="/about" component={AboutPage} />
-      <Route path="/components" component={Components} />
-      <Route path="/contact" component={ContactPage} />
-      <Route path="/jobs" component={WorkPage} />
-      <Route path="/home" component={HomePage} />
-      <Route path="/profile-page" component={ProfilePage} />
-      <Route path="/register" component={RegisterPage} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/" component={HomePage} />
-    </Switch>
-  </Router>,
+  <Provider store={store}>
+    <Router history={hist}>
+      <Switch>
+        <Route path="/about" component={AboutPage} />
+        <Route path="/components" component={Components} />
+        <Route path="/contact" component={ContactPage} />
+        <Route path="/jobs" component={WorkPage} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/profile-page" component={ProfilePage} />
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/" component={HomePage} />
+      </Switch>
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
