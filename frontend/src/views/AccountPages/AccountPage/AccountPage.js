@@ -51,7 +51,14 @@ export default function Page(props) {
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
-
+  var description;
+  var todayDate = new Date();
+  description = userInfo.isAdmin
+    ? "Who cares about your subscription? You're the admin!"
+    : userInfo.expiry > todayDate
+      ? "Your membership is active"
+      : "Your membership is not active currently"
+      
   useEffect(() => {
     if (!userInfo) {
       props.history.push("/login");
@@ -90,17 +97,14 @@ export default function Page(props) {
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>{userInfo.firstName + " " + userInfo.lastName}</h3>
-                    <h6>DESIGNER</h6>
+                    {userInfo.isAdmin && <h6> Admin Account </h6>}
                   </div>
                 </div>
               </GridItem>
             </GridContainer>
             <div className={classes.description}>
               <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
+                {description}
               </p>
             </div>
             <GridContainer justify="center">
@@ -223,91 +227,7 @@ export default function Page(props) {
         </div>
       </div>
       <Footer />
-      <div>
-        <div className={classes.container}>
-          <Card>
-            <form className={classes.form}>
-              <GridContainer justify="center">
-                <GridItem xs={12} sm={12} md={4}>
-                  {/* did this to keep the centered styling as in login page, while allowing the body to go wide */}
-                  <CardHeader color="info" className={classes.cardHeader}>
-                    <h4>Work with us</h4>
-                  </CardHeader>
-                </GridItem>
-              </GridContainer>
-              <CardBody>
-                <form>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={12}>
-                      <h4 className={classes.description} align="justify">
-                        Hey. We are glad you want to be part of our team. Please fill some info
-                        below and we will get back to you soon.
-                      </h4>
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <CustomInput
-                        labelText="Your Name"
-                        id="name"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        underlineInfo
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={6} md={4}>
-                      <CustomInput
-                        labelText="Your Email"
-                        id="email"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        inputProps={{
-                          type: "email"
-                        }}
-                        underlineInfo
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={6} md={4}>
-                      <CustomInput
-                        labelText="Your Phone"
-                        id="phone"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        inputProps={{
-                          type: "tel"
-                        }}
-                        underlineInfo
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={12}>
-                      <CustomInput
-                        labelText="Your Message"
-                        id="message"
-                        formControlProps={{
-                          fullWidth: true,
-                          className: classes.textArea,
-                        }}
-                        inputProps={{
-                          multiline: true,
-                          rows: 5,
-                        }}
-                        underlineInfo
-                      />
-                    </GridItem>
-                  </GridContainer>
-                </form>
-              </CardBody>
-              <CardFooter className={classes.cardFooter}>
-                <Button simple color="info" size="lg">
-                  Submit your application
-                </Button>
-              </CardFooter>
-            </form>
-          </Card>
-        </div>
-        <Footer whiteFont />
-      </div>
+
     </div>
 
   );
