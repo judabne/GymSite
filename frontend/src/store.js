@@ -6,7 +6,7 @@ import { userRegisterReducer } from 'reducers/userReducers';
 
 const userInfo = Cookie.getJSON("userInfo") || null;
 
-const initialState = {};
+const initialState = {userSignin : {userInfo}}; //so the username stays there after refresh.
 const reducer = combineReducers({
     userSignin: userSigninReducer,
     userRegister: userRegisterReducer,

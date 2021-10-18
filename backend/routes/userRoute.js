@@ -12,19 +12,20 @@ router.post("/signin",async (req, res) => {
     if(signinUser) {
         res.send({
             _id: signinUser.id,
-            firstName: signinUser.firstName,
-            lastName: signinUser.lastName,
+            firstName: signinUser.firstname,
+            lastName: signinUser.lastname,
             email: signinUser.email,
             isAdmin: signinUser.isAdmin,
             token: getToken(signinUser)
         })
+        console.log(getToken(signinUser));
     } else {
         res.status(401).send({msg: 'Invalid email or password'})
     }
 })
 
 router.post("/register",async (req, res) => {
-    console.log("REQ " + req.body.firstName);
+    console.log("REQ " + res.body.firstName);
     const user = new User({
         firstname: req.body.firstname,
         lastname: req.body.lastname,

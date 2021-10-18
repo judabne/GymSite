@@ -14,7 +14,6 @@ const signin = (email, password) => async (dispatch) => {
 }
 
 const register = (firstname, lastname, email, password) => async (dispatch) => {
-    console.log(firstname + " " + lastname + " " + email + " " + password + " hey ");
     dispatch({ type: USER_REGISTER_REQUEST, payload: { firstname, lastname, email, password } });
     try {
         const { data } = await axios.post("/api/users/register", { firstname, lastname, email, password });

@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from './config';
 
 const getToken = (user) => {
+    console.log("user " + user.firstname);
     return jwt.sign({
         _id: user._id,
         firstname: user.firstname,
