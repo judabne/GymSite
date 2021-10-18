@@ -25,7 +25,7 @@ router.post("/signin",async (req, res) => {
 })
 
 router.post("/register",async (req, res) => {
-    console.log("REQ " + res.body.firstName);
+    console.log("REQ " + req.body.firstname);
     const user = new User({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -36,8 +36,8 @@ router.post("/register",async (req, res) => {
     if(newUser){
         res.send({
             _id: newUser.id,
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
+            firstName: newUser.firstname,
+            lastName: newUser.lastname,
             email: newUser.email,
             isAdmin: newUser.isAdmin,
             token: getToken(newUser)
@@ -54,7 +54,8 @@ router.get("/createadmin", async (req, res) => {
             lastname: 'Judabne',
             email: 'judabne@github.com',
             password: '1234',
-            isAdmin: true
+            isAdmin: true,
+            expiry: "12-12-2021"
         });
         console.log(user);
         const newUser = await user.save();

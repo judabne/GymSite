@@ -8,9 +8,10 @@ import LocationOn from "@material-ui/icons/LocationOn";
 // core components
 import Card from "components/Card/Card.js";
 
-import image1 from "assets/img/bg.jpg";
+
 import image2 from "assets/img/bg2.jpg";
 import image3 from "assets/img/bg3.jpg";
+let image1 = "https://bestfitnessgym.ro/wp-content/uploads/2019/02/Desktop-300k-16-9-27.jpg"
 
 import styles from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.js";
 

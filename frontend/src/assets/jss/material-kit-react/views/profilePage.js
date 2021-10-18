@@ -41,6 +41,7 @@ const profilePageStyle = {
     marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none",
+    textTransform: "capitalize",
   },
   socials: {
     marginTop: "0",

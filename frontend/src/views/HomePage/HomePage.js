@@ -66,7 +66,7 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax>
-      <SectionCarousel />
+      {/* <SectionCarousel /> */}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <BranchesSection />
