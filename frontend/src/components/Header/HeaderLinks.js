@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // react components for routing our app without refresh
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -77,6 +77,32 @@ export default function HeaderLinks(props) {
             />
         }
       </ListItem>
+
+      {
+        userInfo && userInfo.isAdmin ?
+          <ListItem className={classes.listItem}>
+            <CustomDropdown
+              noLiPadding
+              buttonText="Admin Tools"
+              buttonProps={{
+                className: classes.navLink,
+                color: "transparent",
+              }}
+              dropdownList={[
+                <Link to="/admin/plans" className={classes.dropdownLink}>
+                  Manage Plans
+                </Link>,
+                <Link to="/admin/branches" className={classes.dropdownLink}>
+                  Manage Branches
+                </Link>,
+                <Link to="/admin/users" className={classes.dropdownLink}>
+                  Manage Users
+                </Link>,
+              ]}
+            />
+          </ListItem>
+          : null
+      }
       <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding

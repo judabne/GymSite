@@ -76,7 +76,7 @@ export default function Page(props) {
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
-          height: 200,
+          height: 50,
           color: "white",
         }}
         {...rest}
@@ -84,7 +84,7 @@ export default function Page(props) {
       <Parallax
         small
         filter
-        image={require("assets/img/profile-bg.jpg").default}
+        image={require("assets/img/bg7.jpg").default}
       />
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>

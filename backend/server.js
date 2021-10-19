@@ -5,6 +5,7 @@ import config from './config';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute';
+import plansRoute from './routes/plansRoute'
 const bcrypt = require('bcrypt');
 
 dotenv.config();
@@ -19,6 +20,7 @@ mongoose.connect(mongodbUrl, {
 const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);
+app.use("/api/plans", plansRoute);
 app.get("/api/branches", (req, res) => {
     res.send(data.branches);
 });
