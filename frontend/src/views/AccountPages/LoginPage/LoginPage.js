@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { signin } from "actions/userActions";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -40,7 +40,7 @@ export default function LoginPage(props) {
   const { ...rest } = props;
 
   useEffect(() => {
-    if(userInfo) {
+    if (userInfo) {
       props.history.push("/");
     }
     return () => {
@@ -71,6 +71,7 @@ export default function LoginPage(props) {
         }}
       >
         <div className={classes.container} >
+          
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
@@ -92,7 +93,7 @@ export default function LoginPage(props) {
                         type: "email",
                         onChange: (e) => setEmail(e.target.value)
                       }}
-                      
+
                     />
                     <CustomInput
                       labelText="Password"
@@ -105,7 +106,7 @@ export default function LoginPage(props) {
                         autoComplete: "off",
                         onChange: (e) => setPassword(e.target.value)
                       }}
-                      
+
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>

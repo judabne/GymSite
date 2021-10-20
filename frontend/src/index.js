@@ -15,7 +15,9 @@ import ContactPage from "views/ContactPage/ContactPage";
 import WorkPage from "views/WorkPage/WorkPage";
 import AboutPage from "views/AboutPage/AboutPage";
 import HomePage from "views/HomePage/HomePage";
+import PlansPage from "views/AdminPages/PlansPage/PlansPage.js";
 import { Provider } from "react-redux";
+
 import store from './store';
 
 var hist = createBrowserHistory();
@@ -25,6 +27,7 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         {/* optimize so that header and footer don't rerender unnecessarily*/}
+        <Route path="/admin/plans" component={PlansPage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/components" component={Components} />
         <Route path="/contact" component={ContactPage} />
@@ -33,6 +36,7 @@ ReactDOM.render(
         <Route path="/profile" component={ProfilePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
+        
         <Route path="/" component={HomePage} />
       </Switch>
     </Router>
