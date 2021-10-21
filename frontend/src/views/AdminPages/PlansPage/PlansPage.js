@@ -24,6 +24,7 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
 import image from "assets/img/bg7.jpg";
+import Danger from "components/Typography/Danger";
 
 const useStyles = makeStyles(styles);
 const cbStyles = makeStyles(checkboxstyles);
@@ -50,7 +51,7 @@ export default function PlansPage(props) {
     const planSave = useSelector(state => state.planSave);
     const { loading: loadingSave, success: successSave, error: errorSave } = planSave;
     const planDelete = useSelector(state => state.planDelete);
-    const { loading: loadingDelete, success: successDelete, error: errorDelete } = planDelete;
+    const { success: successDelete } = planDelete;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -129,9 +130,9 @@ export default function PlansPage(props) {
                                                     <th>Name</th>
                                                     {window.innerWidth >= 768 ?
                                                         <>
+                                                            <th>Type</th>
                                                             <th>Description</th>
                                                             <th>Duration</th>
-                                                            <th>Type</th>
                                                             <th>Price</th>
                                                             <th>Availability</th>
                                                         </>
@@ -140,13 +141,15 @@ export default function PlansPage(props) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {plans.map(plan => (<tr key={plan._id}>
+                                                {loading ? <p className={classes.divider}>Loading...</p> :
+                                                error ? <Danger>Error retrieving data</Danger>:
+                                                plans.map(plan => (<tr key={plan._id}>
                                                     <td>{plan.planName}</td>
                                                     {window.innerWidth >= 768 ?
                                                         <>
+                                                            <td>{plan.planType}</td>
                                                             <td>{plan.planDescription}</td>
                                                             <td>{plan.planDuration}</td>
-                                                            <td>{plan.planType}</td>
                                                             <td>{plan.planPrice}</td>
                                                             <td>{plan.planAvailable.toString()}</td>
                                                         </>
@@ -183,7 +186,7 @@ export default function PlansPage(props) {
                                                     </GridItem>
                                                 </GridContainer>
                                                 {loadingSave && <p className={classes.divider}>Loading...</p>}
-                                                {errorSave && <p className={classes.divider}><Danger>Saving</Danger></p>}
+                                                {errorSave && <p className={classes.divider}><Danger>Error saving info. Please validate the fields and try again later</Danger></p>}
                                                 <CardBody>
                                                     <GridContainer>
                                                         <GridItem xs={12} sm={6} md={3}>
