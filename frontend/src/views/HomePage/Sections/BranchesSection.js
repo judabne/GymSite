@@ -56,8 +56,7 @@ export default function BranchesSection() {
       <div>
         <GridContainer>
           {
-            branches.map(branch =>
-              <GridItem key={branch._id} xs={12} sm={6} md={4} >
+            branches.map(branch => ( <GridItem key={branch._id} xs={12} sm={6} md={4} >
                 <Card plain>
                   <GridItem xs={12} sm={12} md={7} className={classes.itemGrid}>
                     <div className={circular}>
@@ -75,7 +74,7 @@ export default function BranchesSection() {
                   </CardBody>
                   <CardFooter />
                 </Card>
-              </GridItem>
+              </GridItem>)
             )
           }
         </GridContainer>

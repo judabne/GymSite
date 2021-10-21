@@ -27,8 +27,11 @@ export default function HeaderLinks(props) {
 
   // need to re-render this component after signing out/in
   const logoutHandler = () => {
+    //console.log(login);
     console.log("signing out");
     Cookies.remove('userInfo');
+    //couldn't refresh using useState
+    location.reload();
   }
 
   return (
