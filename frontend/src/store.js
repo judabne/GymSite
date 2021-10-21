@@ -2,9 +2,7 @@ import { userSigninReducer , userRegisterReducer} from 'reducers/userReducers';
 import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { plansListReducer } from 'reducers/plansReducers';
-import { planSaveReducer } from 'reducers/plansReducers';
-import { planDeleteReducer } from 'reducers/plansReducers';
+import { plansListReducer, planActiveReducer, planSaveReducer, planDeleteReducer } from 'reducers/plansReducers';
 
 const userInfo = Cookie.getJSON("userInfo") || null;
 
@@ -13,6 +11,7 @@ const reducer = combineReducers({
     userSignin: userSigninReducer,
     userRegister: userRegisterReducer,
     plansList: plansListReducer,
+    planActive: planActiveReducer,
     planSave: planSaveReducer,
     planDelete: planDeleteReducer
 })

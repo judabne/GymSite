@@ -5,7 +5,13 @@ import { isAuth, isAdmin } from '../util';
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+    console.log("sending all")
     const plans = await Plan.find();
+    res.send(plans);
+});
+
+router.get("/active", async (req, res) => {
+    const plans = await Plan.find({planAvailable: true}).sort({planType: 1});
     res.send(plans);
 });
 

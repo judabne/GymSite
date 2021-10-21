@@ -43,7 +43,6 @@ export default function AboutPage(props) {
                 }}
             >
                 <div className={classes.container}>
-                    {/* */}
                     <Card className={classes[cardAnimaton]}>
                         <form className={classes.form}>
                             <GridContainer justify="center">

@@ -58,8 +58,7 @@ export default function PlansPage(props) {
         if (successSave) {
             setModalVisible(false);
         }
-        dispatch(listPlans())
-        console.log(plans);
+        dispatch(listPlans());
         return () => {
             //
         };
@@ -141,8 +140,8 @@ export default function PlansPage(props) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {loading ? <p className={classes.divider}>Loading...</p> :
-                                                error ? <Danger>Error retrieving data</Danger>:
+                                                {loading ? <tr className={classes.divider}><td>Loading...</td></tr> :
+                                                error ? <tr><td><Danger>Error retrieving data</Danger></td></tr>:
                                                 plans.map(plan => (<tr key={plan._id}>
                                                     <td>{plan.planName}</td>
                                                     {window.innerWidth >= 768 ?

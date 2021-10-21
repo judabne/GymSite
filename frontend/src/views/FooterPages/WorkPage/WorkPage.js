@@ -45,7 +45,6 @@ export default function LoginPage(props) {
                 }}
             >
                 <div className={classes.container}>
-                    {/* */}
                     <Card className={classes[cardAnimaton]}>
                         <form className={classes.form}>
                             <GridContainer justify="center">

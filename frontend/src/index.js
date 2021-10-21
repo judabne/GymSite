@@ -16,8 +16,8 @@ import WorkPage from "views/FooterPages/WorkPage/WorkPage";
 import AboutPage from "views/FooterPages/AboutPage/AboutPage";
 import HomePage from "views/HomePage/HomePage";
 import PlansPage from "views/AdminPages/PlansPage/PlansPage.js";
+import PlanBuyPage from "views/AccountPages/PlanBuyPage/PlanBuyPage";
 import { Provider } from "react-redux";
-
 import store from './store';
 
 var hist = createBrowserHistory();
@@ -33,6 +33,7 @@ ReactDOM.render(
         <Route path="/contact" component={ContactPage} />
         <Route path="/jobs" component={WorkPage} />
         <Route path="/account" component={AccountPage} />
+        <Route path="/purchase" component={PlanBuyPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />

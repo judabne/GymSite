@@ -1,14 +1,30 @@
 import axios from "axios";
-const { PLAN_LIST_REQUEST, PLAN_LIST_SUCCESS, PLAN_LIST_FAIL, PLAN_SAVE_REQUEST, PLAN_SAVE_SUCCESS, PLAN_SAVE_FAIL, PLAN_DELETE_FAIL, PLAN_DELETE_REQUEST, PLAN_DELETE_SUCCESS } = require("constants/plansConstants");
+const { PLAN_LIST_REQUEST, PLAN_LIST_SUCCESS, PLAN_LIST_FAIL, PLAN_ACTIVE_FAIL, PLAN_ACTIVE_REQUEST, PLAN_ACTIVE_SUCCESS, PLAN_SAVE_FAIL, PLAN_SAVE_REQUEST, PLAN_SAVE_SUCCESS, PLAN_DELETE_SUCCESS, PLAN_DELETE_REQUEST, PLAN_DELETE_FAIL } = require("constants/plansConstants");
 
-const listPlans = () => async (dispatch) => {
+const listPlans = () => async (dispatch, getState) => {
     try {
+        const { userSignin: { userInfo } } = getState();
         dispatch({ type: PLAN_LIST_REQUEST });
-        const { data } = await axios.get("/api/plans");
+        const { data } = await axios.get("/api/plans", {
+            headers: {
+                'Authorization': 'Bearer ' + userInfo.token
+            }
+        });
         dispatch({ type: PLAN_LIST_SUCCESS, payload: data });
     }
     catch (error) {
         dispatch({ type: PLAN_LIST_FAIL, payload: error.message });
+    }
+}
+
+const activePlans = () => async (dispatch) => {
+    try {
+        dispatch({ type: PLAN_ACTIVE_REQUEST });
+        const { data } = await axios.get("/api/plans/active", );
+        dispatch({ type: PLAN_ACTIVE_SUCCESS, payload: data });
+    }
+    catch (error) {
+        dispatch({ type: PLAN_ACTIVE_FAIL, payload: error.message });
     }
 }
 
@@ -48,9 +64,9 @@ const savePlan = (plan) => async (dispatch, getState) => {
             dispatch({ type: PLAN_SAVE_SUCCESS, payload: data });
         }
 
-    } catch (error) {
+    } catch {
         dispatch({ type: PLAN_SAVE_FAIL, payload: error.message });
     }
 }
 
-export { listPlans, savePlan, deletePlan };
+export { listPlans, savePlan, deletePlan, activePlans };
