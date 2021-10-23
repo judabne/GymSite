@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,34 +8,34 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CardFooter from "components/Card/CardFooter.js";
+import Danger from "components/Typography/Danger";
 
 import image from "assets/img/bg7.jpg";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import { useDispatch, useSelector } from "react-redux";
-import Danger from "components/Typography/Danger";
 import { detailsPlan } from "actions/plansActions";
 
 // Stripe
-import { Elements, PaymentElement } from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import CheckoutForm from "./CheckoutForm";
 const stripePromise = loadStripe("pk_test_51JiCwaBQcQnzL9cbRtyDblc4hlqXkJXA8T8D1e1u4p72VEIIEyITsKHhTfFwNXMhEVDsJh06PXUliftJs5CGyw3q00klWibzpP")
 
 const useStyles = makeStyles(styles);
 
 export default function PlansBuyPage(props) {
-    const history = useHistory();
     const classes = useStyles();
     const { match, ...rest } = props;
     const id = match.params.id;
 
     const planDetails = useSelector(state => state.planDetails);
     const { plan, loading, error } = planDetails;
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin
     const dispatch = useDispatch();
     console.log(plan);
 
@@ -45,7 +44,11 @@ export default function PlansBuyPage(props) {
     useEffect(() => {
         dispatch(detailsPlan(id));
         const fetchSecretKey = async () => {
-            const res = await axios.get('/api/secret/' + id);
+            const res = await axios.get('/api/secret/' + id,{
+                headers: {
+                    'Authorization': 'Bearer ' + userInfo.token
+                }
+            });
             const clientSecret = res.data['client_secret'];
             console.log(clientSecret)
             setSecretKey(clientSecret);
@@ -87,23 +90,14 @@ export default function PlansBuyPage(props) {
                                 </CardHeader>
                             </GridItem>
                         </GridContainer>
-                        {secretKey &&
+                        <CardBody>
+                            {loading ? <p className={classes.divider}>Loading...</p> :
+                                error && <Danger style={{ textAlign: "center" }}>Error retrieving data</Danger>}
+                        </CardBody>
+                        {
+                            secretKey &&
                             <Elements stripe={stripePromise} options={options}>
-                                <form>
-                                    <CardBody>
-                                        {loading ? <p className={classes.divider}>Loading...</p> :
-                                            error ? <Danger>Error retrieving data</Danger> :
-                                                <>
-                                                    <h4>Purchase {plan.planName} for ${plan.planPrice}</h4>
-                                                    <PaymentElement />
-                                                </>
-                                        }
-                                    </CardBody>
-                                    <CardFooter className={classes.cardFooter}>
-                                        <Button simple color="warning" onClick={() => history.goBack()}>Go Back</Button>
-                                        <Button color="primary">Purchase {plan && "for $" + plan.planPrice}</Button>
-                                    </CardFooter>
-                                </form>
+                                <CheckoutForm plan={plan} />
                             </Elements>
                         }
                     </Card>

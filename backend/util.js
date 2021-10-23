@@ -14,7 +14,7 @@ const getToken = (user) => {
 }
 
 const isAuth = (req, res, next) => {
-    console.log("woooo")
+    console.log("isAuth")
     console.log(req.user);
     const token = req.headers.authorization;
     if (token) {

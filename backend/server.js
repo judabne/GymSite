@@ -29,7 +29,7 @@ app.get("/api/branches", (req, res) => {
     res.send(data.branches);
 });
 
-app.get('/api/secret/:id', async (req, res) => {
+app.get('/api/secret/:id', isAuth, async (req, res) => {
     try {
         console.log(req.params.id)
         const plan = await Plan.findOne({ _id: req.params.id });
