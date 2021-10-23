@@ -19,7 +19,6 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // Sections for this page
 import BranchesSection from "./Sections/BranchesSection.js";
-import SectionCarousel from "views/Components/Sections/SectionCarousel.js";
 
 const dashboardRoutes = [];
 

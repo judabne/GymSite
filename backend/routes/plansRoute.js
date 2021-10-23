@@ -4,14 +4,14 @@ import { isAuth, isAdmin } from '../util';
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", isAuth, isAdmin, async (req, res) => {
     console.log("sending all")
     const plans = await Plan.find();
     res.send(plans);
 });
 
 router.get("/active", async (req, res) => {
-    const plans = await Plan.find({planAvailable: true}).sort({planType: 1});
+    const plans = await Plan.find({ planAvailable: true }).sort({ planType: 1 });
     res.send(plans);
 });
 
@@ -34,6 +34,16 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
         return res.status(500).send({ message: 'Error in creating plan.' })
     }
 })
+
+router.get('/:id', async (req, res) => {
+    const plan = await Plan.findOne({ _id: req.params.id });
+    if (plan) {
+        res.send(plan);
+    } else {
+        res.status(404).send({ message: 'Plan Not Found.' });
+    }
+});
+
 
 router.put("/:id", isAuth, isAdmin, async (req, res) => {
     try {
@@ -67,6 +77,33 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
         res.send("Error in deletion")
     }
 });
+
+// router.get("/buy/:id", isAuth, async (req, res) => {
+//     console.log(req.user)
+//     try {
+//         const user = await User.findOne({ _id: req.user.id })
+//         const email = user.email;
+//         const plan = await Plan.findOne({ _id: req.params.id1 });
+//         const payAmount = plan.planPrice * 100;
+
+//         const paymentIntent = await stripe.paymentIntents.create({
+//             amount: payAmount,
+//             currency: 'usd',
+//             metadata: { integration_check: 'accept_a_payment' },
+//             recepient_email: email
+//         })
+
+//         var currentDate = new Date();
+//         var futureDate = new Date(currentDate);
+//         futureDate.setMonth(futureDate.getMonth() + 1);
+
+//         user.expiry = futureDate;
+
+//         res.json({ 'client_secret': paymentIntent['client_secret'] });
+//     } catch {
+//         res.send("Error in processing payment");
+//     }
+// })
 
 export default router;
 

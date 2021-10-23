@@ -1,9 +1,11 @@
 import { container, title } from "assets/jss/material-kit-react.js";
+const pt = !navigator.maxTouchPoints ? "0" : !window.screen.orientation.angle ? "0" : "40vh"
 
 const landingPageStyle = {
   container: {
     zIndex: "12",
     color: "#FFFFFF",
+    paddingTop: pt,
     ...container,
   },
   title: {

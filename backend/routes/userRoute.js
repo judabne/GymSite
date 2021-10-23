@@ -24,10 +24,9 @@ router.post("/signin", async (req, res) => {
             })
             console.log(getToken(signinUser));
         } else {
-            console.log("auth failed")
-            res.status(401).send({ msg: 'Invalid email or password' })
+            console.log("auth failed");
+            res.status(401).send({ msg: 'Invalid email or password' });
         }
-
     } else {
         console.log("auth failed")
         res.status(401).send({ msg: 'Invalid email or password' })
@@ -35,27 +34,31 @@ router.post("/signin", async (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    console.log("REQ " + req.body.firstname + " hashedPassword " + hashedPassword);
-    const user = new User({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: hashedPassword
-    });
-    const newUser = await user.save();
-    if (newUser) {
-        res.send({
-            _id: newUser.id,
-            firstName: newUser.firstname,
-            lastName: newUser.lastname,
-            email: newUser.email,
-            isAdmin: newUser.isAdmin,
-            expiry: newUser.expiry,
-            token: getToken(newUser)
-        })
-    } else {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        console.log("REQ " + req.body.firstname + " hashedPassword " + hashedPassword);
+        const user = new User({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: hashedPassword
+        });
+        const newUser = await user.save();
+        if (newUser) {
+            res.send({
+                _id: newUser.id,
+                firstName: newUser.firstname,
+                lastName: newUser.lastname,
+                email: newUser.email,
+                isAdmin: newUser.isAdmin,
+                expiry: newUser.expiry,
+                token: getToken(newUser)
+            })
+        } else {
+            res.status(401).send({ msg: 'Invalid user data' })
+        }
+    } catch {
         res.status(401).send({ msg: 'Invalid user data' })
     }
 })

@@ -88,7 +88,7 @@ export default function RegisterPage(props) {
                   </CardHeader>
                   <p className={classes.divider}><Link to="/login">Have an account? login here</Link></p>
                   {loading && <p className={classes.divider}>Loading...</p>}
-                  {error && <p className={classes.divider}><Danger>Error creating an account. Please try again.</Danger></p>}
+                  {error && <Danger><p className={classes.divider}>Error creating an account. Please try again.</p></Danger>}
                   <CardBody>
                     <CustomInput
                       labelText="First Name"

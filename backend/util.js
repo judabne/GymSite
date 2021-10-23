@@ -14,6 +14,8 @@ const getToken = (user) => {
 }
 
 const isAuth = (req, res, next) => {
+    console.log("woooo")
+    console.log(req.user);
     const token = req.headers.authorization;
     if (token) {
         const onlyToken = token.slice(7, token.length);

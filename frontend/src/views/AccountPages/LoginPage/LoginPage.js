@@ -81,7 +81,7 @@ export default function LoginPage(props) {
                   </CardHeader>
                   <p className={classes.divider}><Link to="/register">New here? Create an account</Link></p>
                   {loading && <p className={classes.divider}>Loading...</p>}
-                  {error && <p className={classes.divider}><Danger>Error Signing in</Danger></p>}
+                  {error && <p className={classes.divider}><Danger>{error}</Danger></p>}
                   <CardBody>
                     <CustomInput
                       labelText="Email"
