@@ -33,7 +33,7 @@ export default function CheckoutForm(props) {
         waiting = true;
 
         const domain = window.location.hostname;
-        const redirect = 'http://' + domain + ':3000/accounts';
+        const redirect = 'http://' + domain + ':3000/paymentresult';
 
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.

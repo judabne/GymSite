@@ -18,6 +18,7 @@ import HomePage from "views/HomePage/HomePage";
 import PlansPage from "views/AdminPages/PlansPage/PlansPage.js";
 import PlansBuyPage from "views/AccountPages/PlansBuyPage/PlansBuyPage";
 import PlanBuyPage from "views/AccountPages/PlanBuyPage/PlanBuyPage";
+import PlanBuyResult from "views/AccountPages/PlanBuyPage/PlanBuyResult/PlanBuyResult"
 import { Provider } from "react-redux";
 import store from './store';
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/account" component={AccountPage} />
           <Route path="/purchase" exact component={PlansBuyPage} />
           <Route path="/purchase/:id" component={PlanBuyPage} />
+          <Route path="/paymentresult" component={PlanBuyResult} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
