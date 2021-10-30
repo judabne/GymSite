@@ -16,6 +16,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import image from "assets/img/bg7.jpg";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import CardFooter from "components/Card/CardFooter";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
@@ -32,7 +34,7 @@ export default function PlansBuyPage(props) {
 
     useEffect(() => {
         const processIntent = async () => {
-            const res = await axios.get('/api/payment/' + payment_intent, {
+            const res = await axios.put('/api/payment/' + payment_intent, {
             });
             setStatusCode(res.status);
             setResponse(res.data)
@@ -82,6 +84,9 @@ export default function PlansBuyPage(props) {
                                 } Please keep the receipt number for future reference.
                             </h4>
                         </CardBody>
+                        <CardFooter className={classes.cardFooter}>
+                            <Link to="/account">Back to account</Link>
+                        </CardFooter>
                     </Card>
                 </div>
                 <Footer whiteFont />

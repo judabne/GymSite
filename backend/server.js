@@ -53,7 +53,7 @@ app.get('/api/secret/:id', isAuth, async (req, res) => {
     }
 });
 
-app.get('/api/payment/:pi', async (req, res) => {
+app.put('/api/payment/:pi', async (req, res) => {
     const paymentIntent = await Payment.findOne({ paymentIntent: req.params.pi });
     if (paymentIntent) {
         res.status(200).send({ msg: "This payment was already processed." })
@@ -69,11 +69,31 @@ app.get('/api/payment/:pi', async (req, res) => {
                 paymentUser: paymentDetails.metadata.user,
                 paymentPlan: paymentDetails.metadata.plan,
                 paymentPlanType: plan.planType,
-                paymentDate: new Date()
+                paymentPlanDur: plan.planDuration,
+                paymentDate: new Date(),
             });
             const newPayment = await payment.save();
-            res.status(200).send(payment)
-        } catch {
+            let existingPlan = user.plans.findIndex(obj => obj.planType === payment.paymentPlanType);
+            if (existingPlan === -1) {
+                let currDate = new Date();
+                currDate.setMonth(currDate.getMonth() + plan.planDuration);
+                user.plans.push({ planType: payment.paymentPlanType, expiry: currDate });
+            } else {
+                let expDate = user.plans[existingPlan].expiry;
+                if (expDate >= new Date()) {
+                    expDate.setMonth(expDate.getMonth() + plan.planDuration);
+                } else {
+                    expDate = new Date();
+                    expDate.setMonth(expDate.getMonth() + plan.planDuration);
+                }
+                user.plans[existingPlan].expiry = expDate;
+                // otherwise it wont recognize that these were modified
+                user.markModified('plans');
+            }
+            const userUpdate = await user.save();
+            res.status(200).send(payment);
+        } catch (e) {
+            console.log("error " + e);
             res.status(202).send({ msg: 'Your payment was received but did not completely process yet. Do not worry we will take care of it' })
         }
     }

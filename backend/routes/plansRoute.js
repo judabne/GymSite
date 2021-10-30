@@ -56,7 +56,7 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
             plan.planPrice = req.body.price;
             plan.planType = req.body.type;
             plan.planDescription = req.body.description,
-                plan.planAvailable = req.body.availability;
+            plan.planAvailable = req.body.availability;
             const updatedPlan = await plan.save();
             if (updatedPlan) {
                 return res.status(200).send({ message: 'Plan Updated', data: updatedPlan })
