@@ -7,13 +7,14 @@ MyGym
 This is a fullstack project for a gym with multiple branches. It allows admins to manage branches, users, and gym plans and classes.
 It also allows registered users to purchase memberships, locate branches, and checkin easily.
 
-The technologies used here are ReactJS, Node.js (Express), and MongoDB (Mongoose)
+The technologies used here are ReactJS, Node.js (Express), and MongoDB (Mongoose). The project also processes payments using Stripe.
 
 ## Getting Started
 
 ### Dependencies
 
 * This project needs Nodejs and NPM to run.
+* You need to have installed and running to run this project.
 * Clone this repo and run npm install. Then navigate to to the frontend folder and run npm install there as well.
 * To start the project use npm start in the project's root to launch the backend
 

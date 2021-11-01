@@ -19,7 +19,7 @@ router.post("/signin", async (req, res) => {
                 lastName: signinUser.lastname,
                 email: signinUser.email,
                 isAdmin: signinUser.isAdmin,
-                expiry: signinUser.expiry,
+                plans: signinUser.plans,
                 token: getToken(signinUser)
             })
             console.log(getToken(signinUser));
@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
                 email: newUser.email,
                 isAdmin: newUser.isAdmin,
                 expiry: newUser.expiry,
-                token: getToken(newUser)
+                plans: newUser.plans
             })
         } else {
             res.status(401).send({ msg: 'Invalid user data' })

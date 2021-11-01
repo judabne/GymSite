@@ -31,11 +31,6 @@ export default function Page(props) {
   const { userInfo } = userSignin;
   var description;
   var todayDate = new Date();
-  description = userInfo.isAdmin
-    ? "Who cares about your subscription? You're the admin!"
-    : userInfo.expiry > todayDate
-      ? "Your membership is active"
-      : "Your membership is not active currently"
 
   useEffect(() => {
     if (!userInfo) {
@@ -47,6 +42,7 @@ export default function Page(props) {
   }, [userInfo]);
 
   return (
+    userInfo &&
     <div>
       <Header
         color="transparent"
@@ -82,7 +78,7 @@ export default function Page(props) {
             </GridContainer>
             <div className={classes.description}>
               <p>
-                {description}
+                {userInfo.isAdmin && "Who cares about your subscription? You're the admin!"}
               </p>
             </div>
             <GridContainer justify="center">
