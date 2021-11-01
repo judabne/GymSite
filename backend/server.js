@@ -80,12 +80,10 @@ app.put('/api/payment/:pi', async (req, res) => {
                 user.plans.push({ planType: payment.paymentPlanType, expiry: currDate });
             } else {
                 let expDate = user.plans[existingPlan].expiry;
-                if (expDate >= new Date()) {
-                    expDate.setMonth(expDate.getMonth() + plan.planDuration);
-                } else {
+                if (expDate < new Date()) { // expired membership
                     expDate = new Date();
-                    expDate.setMonth(expDate.getMonth() + plan.planDuration);
                 }
+                expDate.setMonth(expDate.getMonth() + plan.planDuration);
                 user.plans[existingPlan].expiry = expDate;
                 // otherwise it wont recognize that these were modified
                 user.markModified('plans');
