@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates classes
@@ -29,17 +29,21 @@ export default function Page(props) {
 
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
-  var description;
   var todayDate = new Date();
+  const [activeMemberships, setActiveMemberships] = useState([]);
 
   useEffect(() => {
     if (!userInfo) {
       props.history.push("/login");
+    } else {
+      setActiveMemberships(userInfo.plans.filter(plan => Date.parse(plan.expiry)> todayDate));
     }
     return () => {
 
     };
   }, [userInfo]);
+
+  console.log(activeMemberships)
 
   return (
     userInfo &&
@@ -78,7 +82,9 @@ export default function Page(props) {
             </GridContainer>
             <div className={classes.description}>
               <p>
-                {userInfo.isAdmin && "Who cares about your subscription? You're the admin!"}
+                {userInfo.isAdmin
+                  ? "Who cares about your subscription? You're the admin!"
+                  : "Welcome back!" }
               </p>
             </div>
             <GridContainer justify="center">
@@ -91,6 +97,5 @@ export default function Page(props) {
       </div>
       <Footer />
     </div>
-
   );
 }
