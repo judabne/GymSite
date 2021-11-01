@@ -15,6 +15,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import Button from "components/CustomButtons/Button.js";
 import profile from "assets/img/dumbbells.jpg";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles(styles);
 
@@ -31,12 +32,13 @@ export default function Page(props) {
   const { userInfo } = userSignin;
   var todayDate = new Date();
   const [activeMemberships, setActiveMemberships] = useState([]);
+  let remDays
 
   useEffect(() => {
     if (!userInfo) {
       props.history.push("/login");
     } else {
-      setActiveMemberships(userInfo.plans.filter(plan => Date.parse(plan.expiry)> todayDate));
+      setActiveMemberships(userInfo.plans.filter(plan => Date.parse(plan.expiry) > todayDate));
     }
     return () => {
 
@@ -84,9 +86,26 @@ export default function Page(props) {
               <p>
                 {userInfo.isAdmin
                   ? "Who cares about your subscription? You're the admin!"
-                  : "Welcome back!" }
+                  : "Welcome back!"}
               </p>
+
             </div>
+
+            {activeMemberships.length === 0
+              ? "You don't have any active memberships currently"
+              : activeMemberships.map((membership, index) => <div key={index}>
+                < GridContainer >
+                  <GridItem xs={6} sm={6} md={6}>
+                    <h5>{membership.planType} Membership</h5>
+                  </GridItem>
+                  <GridItem xs={6} sm={6} md={6} className={classes.textRight}>
+                    <h5>{remDays = Math.ceil((Date.parse(membership.expiry) - todayDate) / (1000 * 3600 * 24)) } day{remDays !== 1 && 's'} remaining</h5>
+                  </GridItem>
+                </GridContainer>
+                <Divider style={{ marginBottom: ".5rem" }} />
+              </div>
+              )
+            }
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <Link to="/purchase"><Button type="button" color="primary" size="lg">Purchase membership</Button></Link>

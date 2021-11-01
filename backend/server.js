@@ -84,6 +84,7 @@ app.put('/api/payment/:pi', async (req, res) => {
                     expDate = new Date();
                 }
                 expDate.setMonth(expDate.getMonth() + plan.planDuration);
+                expDate.setHours(23,59,59,999);
                 user.plans[existingPlan].expiry = expDate;
                 // otherwise it wont recognize that these were modified
                 user.markModified('plans');
