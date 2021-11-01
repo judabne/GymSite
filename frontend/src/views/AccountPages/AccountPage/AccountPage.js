@@ -45,8 +45,6 @@ export default function Page(props) {
     };
   }, [userInfo]);
 
-  console.log(activeMemberships)
-
   return (
     userInfo &&
     <div>
@@ -93,13 +91,13 @@ export default function Page(props) {
 
             {activeMemberships.length === 0
               ? "You don't have any active memberships currently"
-              : activeMemberships.map((membership, index) => <div key={index}>
+              : activeMemberships.map((membership, index) => <div key={index} >
                 < GridContainer >
                   <GridItem xs={6} sm={6} md={6}>
                     <h5>{membership.planType} Membership</h5>
                   </GridItem>
                   <GridItem xs={6} sm={6} md={6} className={classes.textRight}>
-                    <h5>{remDays = Math.ceil((Date.parse(membership.expiry) - todayDate) / (1000 * 3600 * 24)) } day{remDays !== 1 && 's'} remaining</h5>
+                    <h5>{remDays = Math.ceil((Date.parse(membership.expiry) - todayDate) / (1000 * 3600 * 24))} day{remDays !== 1 && 's'} remaining</h5>
                   </GridItem>
                 </GridContainer>
                 <Divider style={{ marginBottom: ".5rem" }} />

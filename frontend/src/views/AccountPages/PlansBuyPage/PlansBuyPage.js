@@ -20,8 +20,7 @@ import { cardTitle, cardLink, cardSubtitle } from "assets/jss/material-kit-react
 import { useDispatch, useSelector } from "react-redux";
 import { activePlans } from "actions/plansActions";
 import Danger from "components/Typography/Danger";
-import { Link } from "react-router-dom";
-import { planDetailsReducer } from "reducers/plansReducers";
+import Primary from "components/Typography/Primary";
 
 const cardStyles = {
     cardTitle,
@@ -42,7 +41,18 @@ export default function PlanBuyPage(props) {
 
     const planActive = useSelector(state => state.planActive);
     const { loading, plans, error } = planActive;
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
     const dispatch = useDispatch();
+    let yearDate = new Date();
+    yearDate = yearDate.setFullYear(yearDate.getFullYear() + 1);
+    console.log(yearDate);
+    let planDate;
+
+    function checkDate(planDate, yearDate, duration) {
+        planDate.setMonth(planDate.getMonth() + duration);
+        return planDate <= yearDate ? true : false
+    }
 
     useEffect(() => {
         dispatch(activePlans());
@@ -79,10 +89,12 @@ export default function PlanBuyPage(props) {
                             </GridItem>
                         </GridContainer>
                         <CardBody>
+                            <Primary><h5>You can purchase memberships up to a year ahead</h5></Primary>
                             {loading ? <p className={classes.divider}>Loading...</p> :
                                 error ? <Danger>Error retrieving data</Danger> :
                                     <GridContainer justify="left">
                                         {plans.map(plan =>
+
                                             <GridItem xs={12} sm={6} md={4} key={plan._id}>
                                                 <Card>
                                                     <CardBody>
@@ -91,10 +103,12 @@ export default function PlanBuyPage(props) {
                                                         <p>
                                                             {plan.planDescription}
                                                         </p>
-
                                                         <div className={cardClasses.textRight}>
                                                             <h3 className={cardClasses.cardTitle}>${plan.planPrice}</h3>
-                                                            <Link to={"/purchase/" + plan._id}><Button color="primary">Purchase</Button></Link>
+                                                            {/* This was wrapped in a link. But we can't disable links */}
+                                                            <Button color="primary" href={"/purchase/" + plan._id}
+                                                                disabled={!userInfo || !checkDate(new Date(userInfo.plans.find(subsc => subsc.planType === plan.planType).expiry), yearDate, plan.planDuration)}
+                                                            >Purchase</Button>
                                                         </div>
                                                     </CardBody>
                                                 </Card>
@@ -103,6 +117,7 @@ export default function PlanBuyPage(props) {
                             }
                         </CardBody>
                         <CardFooter className={classes.cardFooter}>
+                            {!userInfo && <Danger><h4>Please sign in to purchase a plan</h4></Danger>}
                         </CardFooter>
                     </Card>
                 </div>
