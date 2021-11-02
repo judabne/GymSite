@@ -28,21 +28,17 @@ const register = (firstname, lastname, email, password) => async (dispatch) => {
 
 const reloadUser = () => async (dispatch, getState) => {
     try {
-        console.log("rblgnrl")
         const { userSignin: { userInfo } } = getState();
         dispatch({ type: USER_RELOAD_REQUEST });
-        console.log("zbhmr")
         const { data } = await axios.get("/api/users/reload", {
             headers: {
                 'Authorization': 'Bearer ' + userInfo.token
             }
         });
-        console.log("rlj7sh")
         dispatch({ type: USER_RELOAD_SUCCESS, payload: data });
         Cookie.set('userInfo', JSON.stringify(data));
         console.log(Cookie.getJSON("userInfo"))
     } catch (error) {
-        console.log("rlj7sh" + error)
         dispatch({ type: USER_RELOAD_FAIL, payload: error.message });
     }
 }
