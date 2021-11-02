@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { activePlans } from "actions/plansActions";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -12,15 +14,13 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-
-import image from "assets/img/bg7.jpg";
-
-import styles from "assets/jss/material-kit-react/views/loginPage.js";
-import { cardTitle, cardLink, cardSubtitle } from "assets/jss/material-kit-react.js";
-import { useDispatch, useSelector } from "react-redux";
-import { activePlans } from "actions/plansActions";
 import Danger from "components/Typography/Danger";
 import Primary from "components/Typography/Primary";
+
+import image from "assets/img/bg7.jpg";
+import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import { cardTitle, cardLink, cardSubtitle } from "assets/jss/material-kit-react.js";
+import { Link } from "react-router-dom";
 
 const cardStyles = {
     cardTitle,
@@ -46,12 +46,18 @@ export default function PlanBuyPage(props) {
     const dispatch = useDispatch();
     let yearDate = new Date();
     yearDate = yearDate.setFullYear(yearDate.getFullYear() + 1);
-    console.log(yearDate);
-    let planDate;
 
     function checkDate(planDate, yearDate, duration) {
+        console.log(planDate)
         planDate.setMonth(planDate.getMonth() + duration);
         return planDate <= yearDate ? true : false
+    }
+
+    function checkDisabled(plan) {
+        if (!userInfo) return true;
+        const searchPlan = userInfo.plans.find(subsc => subsc.planType === plan.planType);
+        if (!searchPlan) return false;
+        return !checkDate(new Date(searchPlan.expiry), yearDate, plan.planDuration)
     }
 
     useEffect(() => {
@@ -94,7 +100,6 @@ export default function PlanBuyPage(props) {
                                 error ? <Danger>Error retrieving data</Danger> :
                                     <GridContainer justify="left">
                                         {plans.map(plan =>
-
                                             <GridItem xs={12} sm={6} md={4} key={plan._id}>
                                                 <Card>
                                                     <CardBody>
@@ -107,7 +112,7 @@ export default function PlanBuyPage(props) {
                                                             <h3 className={cardClasses.cardTitle}>${plan.planPrice}</h3>
                                                             {/* This was wrapped in a link. But we can't disable links */}
                                                             <Button color="primary" href={"/purchase/" + plan._id}
-                                                                disabled={!userInfo || !checkDate(new Date(userInfo.plans.find(subsc => subsc.planType === plan.planType).expiry), yearDate, plan.planDuration)}
+                                                                disabled={checkDisabled(plan)}
                                                             >Purchase</Button>
                                                         </div>
                                                     </CardBody>
@@ -117,7 +122,7 @@ export default function PlanBuyPage(props) {
                             }
                         </CardBody>
                         <CardFooter className={classes.cardFooter}>
-                            {!userInfo && <Danger><h4>Please sign in to purchase a plan</h4></Danger>}
+                            {!userInfo && <Link to="/login"><Danger><h4>Please sign in to purchase a plan</h4></Danger></Link>}
                         </CardFooter>
                     </Card>
                 </div>
