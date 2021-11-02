@@ -38,6 +38,7 @@ export default function Page(props) {
     if (!userInfo) {
       props.history.push("/login");
     } else {
+      console.log(userInfo)
       setActiveMemberships(userInfo.plans.filter(plan => Date.parse(plan.expiry) > todayDate));
     }
     return () => {

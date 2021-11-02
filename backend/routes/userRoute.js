@@ -52,8 +52,8 @@ router.post("/register", async (req, res) => {
                 lastName: newUser.lastname,
                 email: newUser.email,
                 isAdmin: newUser.isAdmin,
-                expiry: newUser.expiry,
-                plans: newUser.plans
+                plans: newUser.plans,
+                token: getToken(newUser)
             })
         } else {
             res.status(401).send({ msg: 'Invalid user data' })
@@ -83,6 +83,26 @@ router.get("/createadmin", async (req, res) => {
         res.send({ message: error.message });
     }
 });
+
+router.get("/reload", isAuth, async (req, res) => {
+    console.log("reloading user")
+    try {
+        const signinUser = await User.findOne({ _id: req.user._id });
+        if (signinUser) {
+            res.send({
+                _id: signinUser.id,
+                firstName: signinUser.firstname,
+                lastName: signinUser.lastname,
+                email: signinUser.email,
+                isAdmin: signinUser.isAdmin,
+                plans: signinUser.plans,
+                token: getToken(signinUser)
+            })
+        }
+    } catch (error) {
+        res.send({ message: error.message });
+    }
+})
 
 router.get("/:id", isAuth, async (req, res) => {
     const user = await User.findOne({ _id: req.params.id });
