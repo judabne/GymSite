@@ -1,5 +1,5 @@
 import axios from "axios";
-import { USER_SIGNIN_FAIL, USER_SIGNIN_SUCCESS, USER_SIGNIN_REQUEST, USER_REGISTER_FAIL, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST } from "constants/userConstants";
+import { USER_SIGNIN_FAIL, USER_SIGNIN_SUCCESS, USER_SIGNIN_REQUEST, USER_REGISTER_FAIL, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_RELOAD_REQUEST, USER_RELOAD_SUCCESS, USER_RELOAD_FAIL } from "constants/userConstants";
 import Cookie from 'js-cookie';
 
 const signin = (email, password) => async (dispatch) => {
@@ -26,4 +26,25 @@ const register = (firstname, lastname, email, password) => async (dispatch) => {
     }
 }
 
-export { signin, register };
+const reloadUser = () => async (dispatch, getState) => {
+    try {
+        console.log("rblgnrl")
+        const { userSignin: { userInfo } } = getState();
+        dispatch({ type: USER_RELOAD_REQUEST });
+        console.log("zbhmr")
+        const { data } = await axios.get("/api/users/reload", {
+            headers: {
+                'Authorization': 'Bearer ' + userInfo.token
+            }
+        });
+        console.log("rlj7sh")
+        dispatch({ type: USER_RELOAD_SUCCESS, payload: data });
+        Cookie.set('userInfo', JSON.stringify(data));
+        console.log(Cookie.getJSON("userInfo"))
+    } catch (error) {
+        console.log("rlj7sh" + error)
+        dispatch({ type: USER_RELOAD_FAIL, payload: error.message });
+    }
+}
+
+export { signin, register, reloadUser };
