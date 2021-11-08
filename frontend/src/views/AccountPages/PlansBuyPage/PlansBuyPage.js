@@ -9,7 +9,6 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -19,47 +18,21 @@ import Primary from "components/Typography/Primary";
 
 import image from "assets/img/bg7.jpg";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-import { cardTitle, cardLink, cardSubtitle } from "assets/jss/material-kit-react.js";
 import { Link } from "react-router-dom";
-
-const cardStyles = {
-    cardTitle,
-    cardLink,
-    cardSubtitle,
-    textRight: {
-        textAlign: "right"
-    }
-};
+import PurchaseableMembership from "components/PurchaseableMembership/PurchaseableMembership";
 
 const useStyles = makeStyles(styles);
-const useCardStyles = makeStyles(cardStyles);
 
 export default function PlanBuyPage(props) {
     const classes = useStyles();
-    const cardClasses = useCardStyles();
     const { ...rest } = props;
 
     const planActive = useSelector(state => state.planActive);
     const { loading, plans, error } = planActive;
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin;
+    
     const dispatch = useDispatch();
-    let yearDate = new Date();
-    yearDate = yearDate.setFullYear(yearDate.getFullYear() + 1);
-
-    function checkDate(planDate, yearDate, duration) {
-        console.log(planDate)
-        planDate.setMonth(planDate.getMonth() + duration);
-        return planDate <= yearDate ? true : false
-    }
-
-    function checkDisabled(plan) {
-        if (!userInfo) return true;
-        const searchPlan = userInfo.plans.find(subsc => subsc.planType === plan.planType);
-        if (!searchPlan) return false;
-        return !checkDate(new Date(searchPlan.expiry), yearDate, plan.planDuration)
-    }
-
     useEffect(() => {
         dispatch(activePlans());
         return () => {
@@ -100,24 +73,8 @@ export default function PlanBuyPage(props) {
                                 error ? <Danger>Error retrieving data</Danger> :
                                     <GridContainer justify="left">
                                         {plans.map(plan =>
-                                            <GridItem xs={12} sm={6} md={4} key={plan._id}>
-                                                <Card>
-                                                    <CardBody>
-                                                        <h4 className={cardClasses.cardTitle}>{plan.planName}</h4>
-                                                        <h6 className={cardClasses.cardSubtitle}>{plan.planType}</h6>
-                                                        <p>
-                                                            {plan.planDescription}
-                                                        </p>
-                                                        <div className={cardClasses.textRight}>
-                                                            <h3 className={cardClasses.cardTitle}>${plan.planPrice}</h3>
-                                                            {/* This was wrapped in a link. But we can't disable links */}
-                                                            <Button color="primary" href={"/purchase/" + plan._id}
-                                                                disabled={checkDisabled(plan)}
-                                                            >Purchase</Button>
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-                                            </GridItem>)}
+                                            <PurchaseableMembership key={plan._id} plan={plan} />
+                                        )}
                                     </GridContainer>
                             }
                         </CardBody>

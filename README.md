@@ -14,7 +14,7 @@ The technologies used here are ReactJS, Node.js (Express), and MongoDB (Mongoose
 ### Dependencies
 
 * This project needs Nodejs and NPM to run.
-* You need to have installed and running to run this project.
+* You need to have MongoDB installed and running to run this project.
 * Clone this repo and run npm install. Then navigate to to the frontend folder and run npm install there as well.
 * To start the project use npm start in the project's root to launch the backend
 
