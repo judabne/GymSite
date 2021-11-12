@@ -1,4 +1,4 @@
-import { userSigninReducer, userRegisterReducer, userReloadReducer } from 'reducers/userReducers';
+import { userSigninReducer } from 'reducers/userReducers';
 import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
@@ -10,8 +10,6 @@ const initialState = { userSignin: { userInfo } }; //so the username stays there
 
 const reducer = combineReducers({
     userSignin: userSigninReducer,
-    userRegister: userRegisterReducer,
-    userReload: userReloadReducer,
     plansList: plansListReducer,
     planActive: planActiveReducer,
     planDetails: planDetailsReducer,

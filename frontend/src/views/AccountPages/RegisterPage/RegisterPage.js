@@ -31,8 +31,8 @@ export default function RegisterPage(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
-  const userRegister = useSelector(state => state.userRegister);
-  let { loading, userInfo, error } = userRegister;
+  const userSignin = useSelector(state => state.userSignin);
+  let { loading, userInfo, error } = userSignin;
   const dispatch = useDispatch();
 
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
