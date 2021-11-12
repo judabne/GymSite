@@ -12,24 +12,15 @@ router.post("/signin", async (req, res) => {
     if (signinUser) {
         const validPassword = await bcrypt.compare(req.body.password, signinUser.password)
         if (validPassword) {
-            console.log("right pwd")
-            res.send({
-                _id: signinUser.id,
-                firstName: signinUser.firstname,
-                lastName: signinUser.lastname,
-                email: signinUser.email,
-                isAdmin: signinUser.isAdmin,
-                plans: signinUser.plans,
-                token: getToken(signinUser)
-            })
+            sendUserJson(signinUser, res)
             console.log(getToken(signinUser));
         } else {
             console.log("auth failed");
             res.status(401).send({ msg: 'Invalid email or password' });
         }
     } else {
-        console.log("auth failed")
-        res.status(401).send({ msg: 'Invalid email or password' })
+        console.log("didn't find email")
+        res.status(401).send({ msg: 'Email does not exist' })
     }
 })
 
@@ -46,22 +37,26 @@ router.post("/register", async (req, res) => {
         });
         const newUser = await user.save();
         if (newUser) {
-            res.send({
-                _id: newUser.id,
-                firstName: newUser.firstname,
-                lastName: newUser.lastname,
-                email: newUser.email,
-                isAdmin: newUser.isAdmin,
-                plans: newUser.plans,
-                token: getToken(newUser)
-            })
+            sendUserJson(newUser, res)
         } else {
             res.status(401).send({ msg: 'Invalid user data' })
         }
     } catch {
         res.status(401).send({ msg: 'Invalid user data' })
     }
-})
+});
+
+router.get("/reload", isAuth, async (req, res) => {
+    console.log("reloading user")
+    try {
+        const signinUser = await User.findOne({ _id: req.user._id });
+        if (signinUser) {
+            sendUserJson(signinUser, res)
+        }
+    } catch (error) {
+        res.send({ message: error.message });
+    }
+});
 
 router.get("/createadmin", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
@@ -84,26 +79,6 @@ router.get("/createadmin", async (req, res) => {
     }
 });
 
-router.get("/reload", isAuth, async (req, res) => {
-    console.log("reloading user")
-    try {
-        const signinUser = await User.findOne({ _id: req.user._id });
-        if (signinUser) {
-            res.send({
-                _id: signinUser.id,
-                firstName: signinUser.firstname,
-                lastName: signinUser.lastname,
-                email: signinUser.email,
-                isAdmin: signinUser.isAdmin,
-                plans: signinUser.plans,
-                token: getToken(signinUser)
-            })
-        }
-    } catch (error) {
-        res.send({ message: error.message });
-    }
-})
-
 router.get("/:id", isAuth, async (req, res) => {
     const user = await User.findOne({ _id: req.params.id });
     if (user) {
@@ -113,5 +88,16 @@ router.get("/:id", isAuth, async (req, res) => {
     }
 });
 
-export default router;
+const sendUserJson = (user, res) => {
+    res.send({
+        _id: user.id,
+        firstName: user.firstname,
+        lastName: user.lastname,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        plans: user.plans,
+        token: getToken(user)
+    })
+}
 
+export default router;
