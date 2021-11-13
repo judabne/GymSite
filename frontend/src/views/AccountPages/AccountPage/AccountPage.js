@@ -15,7 +15,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import Button from "components/CustomButtons/Button.js";
 import profile from "assets/img/dumbbells.jpg";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
-import ActiveMembership from "components/AcitveMembership/ActiveMembership";
+import ActiveMembership from "components/AcitveMembership/ActiveMembership.tsx";
 
 const useStyles = makeStyles(styles);
 
