@@ -91,8 +91,9 @@ export default function Page(props) {
 
             {activeMemberships.length === 0
               ? "You don't have any active memberships currently"
-              : activeMemberships.map((membership) => <ActiveMembership key={membership._id} planType={membership.planType} expiry={membership.expiry} />)
+              : activeMemberships.map((membership) => <ActiveMembership key={membership._id} planType={membership.planType} expiry={membership.expiry} classes={classes}/>)
             }
+
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <Link to="/purchase"><Button type="button" color="primary" size="lg">Purchase membership</Button></Link>
