@@ -82,8 +82,8 @@ export default function PlansBuyPage(props) {
                         <CardBody className={classes.divider}>
                             <h3 >Receipt No: {payment_intent}</h3>
                             <h4>
-                                {response.msg
-                                    ? response.msg
+                                {response.message
+                                    ? response.message
                                     : response.paymentPlanType && "Your " + response.paymentPlanType + " membership purchase was successful."
                                 } Please keep the receipt number for future reference.
                             </h4>
