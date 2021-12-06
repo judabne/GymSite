@@ -56,7 +56,7 @@ app.get('/api/secret/:id', isAuth, async (req, res) => {
 app.put('/api/payment/:pi', async (req, res) => {
     const paymentIntent = await Payment.findOne({ paymentIntent: req.params.pi });
     if (paymentIntent) {
-        res.status(200).send({ msg: "This payment was already processed." })
+        res.status(200).send({ message: "This payment was already processed." })
     }
     else {
         try {
@@ -93,7 +93,7 @@ app.put('/api/payment/:pi', async (req, res) => {
             res.status(200).send(payment);
         } catch (e) {
             console.log("error " + e);
-            res.status(202).send({ msg: 'Your payment was received but did not completely process yet. Do not worry we will take care of it' })
+            res.status(202).send({ message: 'Your payment was received but did not completely process yet. Do not worry we will take care of it' })
         }
     }
 

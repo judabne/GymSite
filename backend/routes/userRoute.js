@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/userModel';
 import { getToken, isAuth } from '../util';
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt'
 
 const router = express.Router();
 
@@ -16,11 +16,11 @@ router.post("/signin", async (req, res) => {
             console.log(getToken(signinUser));
         } else {
             console.log("auth failed");
-            res.status(401).send({ msg: 'Invalid email or password' });
+            res.status(401).send({ message: 'Invalid email or password' });
         }
     } else {
         console.log("didn't find email")
-        res.status(401).send({ msg: 'Email does not exist' })
+        res.status(401).send({ message: 'Email does not exist' })
     }
 })
 
@@ -39,10 +39,10 @@ router.post("/register", async (req, res) => {
         if (newUser) {
             sendUserJson(newUser, res)
         } else {
-            res.status(401).send({ msg: 'Invalid user data' })
+            res.status(401).send({ message: 'Invalid user data' })
         }
     } catch {
-        res.status(401).send({ msg: 'Invalid user data' })
+        res.status(401).send({ message: 'Invalid user data' })
     }
 });
 

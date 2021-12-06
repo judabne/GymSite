@@ -9,8 +9,8 @@ const signin = (email, password) => async (dispatch) => {
         dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
         Cookie.set('userInfo', JSON.stringify(data));
     } catch (error) {
-        console.log(error.response.data.msg)
-        dispatch({ type: USER_SIGNIN_FAIL, payload: error.response.data.msg });
+        console.log(error.response.data.message)
+        dispatch({ type: USER_SIGNIN_FAIL, payload: error.response.data.message });
     }
 }
 
@@ -22,7 +22,7 @@ const register = (firstname, lastname, email, password) => async (dispatch) => {
         dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
         Cookie.set('userInfo', JSON.stringify(data));
     } catch (error) {
-        dispatch({ type: USER_REGISTER_FAIL, payload: error.response.data.msg });
+        dispatch({ type: USER_REGISTER_FAIL, payload: error.response.data.message });
     }
 }
 
