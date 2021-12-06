@@ -5,7 +5,6 @@ import { isAuth, isAdmin } from '../util';
 const router = express.Router();
 
 router.get("/", isAuth, isAdmin, async (req, res) => {
-    console.log("sending all")
     const plans = await Plan.find();
     res.send(plans);
 });
@@ -25,7 +24,6 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
             planDescription: req.body.description,
             planAvailable: req.body.availability
         });
-        console.log(plan);
         const newPlan = await plan.save();
         if (newPlan) {
             return res.status(201).send({ message: 'New Plan Created', data: newPlan })

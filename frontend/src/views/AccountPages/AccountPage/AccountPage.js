@@ -35,7 +35,7 @@ export default function Page(props) {
 
   useEffect(() => {
     if (!userInfo) {
-      props.history.push("/login");
+      history.push("/login");
     } else {
       console.log(userInfo)
       setActiveMemberships(userInfo.plans.filter(plan => Date.parse(plan.expiry) > todayDate));

@@ -10,9 +10,7 @@ import Plan from './models/planModel';
 import User from './models/userModel';
 import Payment from './models/paymentModel';
 import { isAuth } from './util';
-
-const bcrypt = require('bcrypt');
-const stripe = require('stripe')('sk_test_51JiCwaBQcQnzL9cb9ImcFc4aGZK9TmkfGp6tdbTP7JLQabIZEuHa2xnpcIuAqTOxWDodWRbBvuNQRknxjAyXnLMs00xOnZqz0k');
+const stripe = require('stripe')(config.STRIPE_SK);
 
 dotenv.config();
 
@@ -34,7 +32,6 @@ app.get("/api/branches", (req, res) => {
 app.get('/api/secret/:id', isAuth, async (req, res) => {
     try {
         const plan = await Plan.findOne({ _id: req.params.id });
-        console.log(plan.planPrice)
         const payAmount = plan.planPrice * 100;
         const intent = await stripe.paymentIntents.create({
             amount: payAmount,
@@ -61,7 +58,6 @@ app.put('/api/payment/:pi', async (req, res) => {
     else {
         try {
             const paymentDetails = await stripe.paymentIntents.retrieve(req.params.pi)
-            console.log(paymentDetails.metadata.user)
             const user = await User.findById(paymentDetails.metadata.user);
             const plan = await Plan.findById(paymentDetails.metadata.plan);
             const payment = new Payment({

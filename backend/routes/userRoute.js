@@ -13,7 +13,6 @@ router.post("/signin", async (req, res) => {
         const validPassword = await bcrypt.compare(req.body.password, signinUser.password)
         if (validPassword) {
             sendUserJson(signinUser, res)
-            console.log(getToken(signinUser));
         } else {
             console.log("auth failed");
             res.status(401).send({ message: 'Invalid email or password' });
@@ -28,7 +27,7 @@ router.post("/register", async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        console.log("REQ " + req.body.firstname + " hashedPassword " + hashedPassword);
+        console.log("Creating new user");
         const user = new User({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -70,10 +69,9 @@ router.get("/createadmin", async (req, res) => {
             isAdmin: true,
             expiry: "12-12-2021"
         });
-        console.log(user);
         const newUser = await user.save();
         res.send(newUser);
-        console.log("saved");
+        console.log("Admin created");
     } catch (error) {
         res.send({ message: error.message });
     }
