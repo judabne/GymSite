@@ -22,7 +22,7 @@ The technologies used here are ReactJS, Node.js (Express), and MongoDB (Mongoose
 * Navigate to the project's root in a terminal and type ```cd frontend && npm install && cd ../backend && npm install```
 * If you need an admin account (to manage plans/branches...), make sure MongoDB is running and do the following:
     * Start the backend. In a terminal go to the project's root folder and type ```cd backend && npm start```
-    * In your browser type ```localhost:5000/createadmin```
+    * In your browser type ```http://localhost:5000/api/users/createadmin```
 
 ### Executing program
 
