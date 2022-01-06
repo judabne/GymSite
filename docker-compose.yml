@@ -1,0 +1,29 @@
+version: '3.8'
+services:configs:
+  api:
+    container_name: api-container
+    restart: always
+    build: ./backend
+    ports:
+      -"5000:5000"
+    depends_on:
+      -mongo
+  client:
+    container_name: client-container
+    restart: always
+    build: ./frontend
+    ports: "3000:3000"
+    depends_on:
+      -api
+  mongo:
+    container_name: mongo-backend
+    image: mongo
+    expose: 
+      - "27017"
+    ports:
+      - "27017:27017"
+    volumes:
+      - apiDB:/data/db
+
+volumes:configs:
+  apiDB
