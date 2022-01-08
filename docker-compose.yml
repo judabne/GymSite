@@ -1,20 +1,21 @@
 version: '3.8'
-services:configs:
+services:
   api:
     container_name: api-container
     restart: always
     build: ./backend
     ports:
-      -"5000:5000"
+      - "5000:5000"
     depends_on:
-      -mongo
+      - mongo
   client:
     container_name: client-container
     restart: always
     build: ./frontend
-    ports: "3000:3000"
+    ports: 
+      - "3000:3000"
     depends_on:
-      -api
+      - api
   mongo:
     container_name: mongo-backend
     image: mongo
@@ -25,5 +26,5 @@ services:configs:
     volumes:
       - apiDB:/data/db
 
-volumes:configs:
-  apiDB
+volumes:
+  apiDB:
