@@ -16,6 +16,7 @@ import WorkPage from "views/FooterPages/WorkPage/WorkPage";
 import AboutPage from "views/FooterPages/AboutPage/AboutPage";
 import HomePage from "views/HomePage/HomePage";
 import PlansPage from "views/AdminPages/PlansPage/PlansPage.js";
+import BranchesPage from "views/AdminPages/BranchesPage/BranchesPage.js";
 import PlansBuyPage from "views/AccountPages/PlansBuyPage/PlansBuyPage";
 import PlanBuyPage from "views/AccountPages/PlanBuyPage/PlanBuyPage";
 import PlanBuyResult from "views/AccountPages/PlanBuyPage/PlanBuyResult/PlanBuyResult"
@@ -32,7 +33,7 @@ function App() {
         <Switch>
           {/* optimize so that header and footer don't rerender unnecessarily*/}
           <Route path="/admin/plans" component={PlansPage} />
-          <Route path="/admin/branches" component={PlansPage} />
+          <Route path="/admin/branches" component={BranchesPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/components" component={Components} />
           <Route path="/contact" component={ContactPage} />

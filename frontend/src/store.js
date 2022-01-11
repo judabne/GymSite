@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { plansListReducer, planActiveReducer, planDetailsReducer, planSaveReducer, planDeleteReducer } from 'reducers/plansReducers';
-import { branchesListReducer, branchActiveReducer, branchDetailsReducer, branchSaveReducer, branchDeleteReducer } from 'reducers/branchesReducers';
+import { branchesListReducer, branchDetailsReducer, branchSaveReducer, branchDeleteReducer } from 'reducers/branchesReducers';
 
 const userInfo = Cookie.getJSON("userInfo") || null;
 

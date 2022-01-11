@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { listPlans, savePlan, deletePlan } from '../../../actions/plansActions';
+import { listBranches, saveBranch, deleteBranch } from '../../../actions/branchesActions';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -20,6 +20,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput";
 import Button from "components/CustomButtons/Button.js";
+import SneakingComponent from "../SneakingComponent/SneakingComponent"
 // assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
@@ -29,7 +30,7 @@ import Danger from "components/Typography/Danger";
 const useStyles = makeStyles(styles);
 const cbStyles = makeStyles(checkboxstyles);
 
-export default function PlansPage(props) {
+export default function BranchesPage(props) {
 
     const classes = useStyles();
     const cbclasses = cbStyles();
@@ -46,19 +47,19 @@ export default function PlansPage(props) {
 
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin
-    const plansList = useSelector(state => state.plansList);
-    const { loading, plans, error } = plansList;
-    const planSave = useSelector(state => state.planSave);
-    const { loading: loadingSave, success: successSave, error: errorSave } = planSave;
-    const planDelete = useSelector(state => state.planDelete);
-    const { success: successDelete } = planDelete;
+    const branchesList = useSelector(state => state.branchesList);
+    const { loading, branches, error } = branchesList;
+    const branchSave = useSelector(state => state.branchSave);
+    const { loading: loadingSave, success: successSave, error: errorSave } = branchSave;
+    const branchDelete = useSelector(state => state.branchDelete);
+    const { success: successDelete } = branchDelete;
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (successSave) {
             setModalVisible(false);
         }
-        dispatch(listPlans());
+        dispatch(listBranches());
         return () => {
             //
         };
@@ -66,30 +67,32 @@ export default function PlansPage(props) {
 
     const closeModal = () => {
         setModalVisible(false);
-        setId(''); // if we discard an edited plan and create a new one, we get old fields but new id
+        setId(''); // if we discard an edited branch and create a new one, we get old fields but new id
     }
-    const openModal = (plan) => {
+    const openModal = (branch) => {
         setModalVisible(true);
-        setId(plan._id);
-        setName(plan.planName);
-        setDuration(plan.planDuration);
-        setType(plan.planType);
-        setDescription(plan.planDescription);
-        setPrice(plan.planPrice);
-        setAvailability(plan.planAvailable);
+        setId(branch._id);
+        setName(branch.branchName);
+        setDuration(branch.branchDuration);
+        setType(branch.branchType);
+        setDescription(branch.branchDescription);
+        setPrice(branch.branchPrice);
+        setAvailability(branch.branchAvailable);
     }
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(savePlan({
+        dispatch(saveBranch({
             _id: id,
             name, duration, type, description, price, availability
         }))
     }
 
-    const deleteHandler = (plan) => {
-        dispatch(deletePlan(plan._id));
+    const deleteHandler = (branch) => {
+        dispatch(deleteBranch(branch._id));
     }
+
+    console.log("Branches component")
 
     return (
         <div>
@@ -126,14 +129,11 @@ export default function PlansPage(props) {
                                         <table className="table" style={{ width: "100%" }}>
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
+                                                    <th>Location</th>
                                                     {window.innerWidth >= 768 ?
                                                         <>
-                                                            <th>Type</th>
                                                             <th>Description</th>
-                                                            <th>Duration</th>
-                                                            <th>Price</th>
-                                                            <th>Availability</th>
+                                                            <th>Image</th>
                                                         </>
                                                         : null}
                                                     <th>Actions</th>
@@ -141,27 +141,25 @@ export default function PlansPage(props) {
                                             </thead>
                                             <tbody>
                                                 {loading ? <tr className={classes.divider}><td>Loading...</td></tr> :
-                                                error ? <tr><td><Danger>Error retrieving data</Danger></td></tr>:
-                                                plans.map(plan => (<tr key={plan._id}>
-                                                    <td>{plan.planName}</td>
-                                                    {window.innerWidth >= 768 ?
-                                                        <>
-                                                            <td>{plan.planType}</td>
-                                                            <td>{plan.planDescription}</td>
-                                                            <td>{plan.planDuration}</td>
-                                                            <td>{plan.planPrice}</td>
-                                                            <td>{plan.planAvailable.toString()}</td>
-                                                        </>
-                                                        : null}
-                                                    <td>
-                                                        <Button size="sm" type="button" color="success" onClick={() => openModal(plan)}>
-                                                            Edit
-                                                        </Button>
-                                                        <Button size="sm" type="button" color="danger" onClick={() => deleteHandler(plan)}>
-                                                            Delete
-                                                        </Button>
-                                                    </td>
-                                                </tr>))}
+                                                    error ? <tr><td><Danger>Error retrieving data</Danger></td></tr> :
+                                                        branches.map(branch => (<tr key={branch._id}>
+                                                            <td>{branch.city}</td>
+                                                            {window.innerWidth >= 768 ?
+                                                                <>
+                                                                    <td>{branch.description}</td>
+                                                                    <td><img src={branch.image} style={{ width: "5vw" }}></img></td>
+                                                                </>
+                                                                : null}
+                                                            <td style={{ width: "15vw" }}>
+                                                                <Button size="sm" type="button" color="success" onClick={() => openModal(branch)}>
+                                                                    Edit
+                                                                </Button>
+                                                                <Button size="sm" type="button" color="danger" onClick={() => deleteHandler(branch)}>
+                                                                    Delete
+                                                                </Button>
+                                                            </td>
+
+                                                        </tr>))}
                                             </tbody>
                                         </table>
                                     </CardBody>
@@ -171,7 +169,7 @@ export default function PlansPage(props) {
                                 </form>
                             </Card>
 
-                            {/* Create or update plan card */}
+                            {/* Create or update branch card */}
                             {modalVisible &&
                                 <GridContainer justify="center">
                                     <GridItem xs={12} sm={12} md={12}>
@@ -180,7 +178,7 @@ export default function PlansPage(props) {
                                                 <GridContainer justify="center">
                                                     <GridItem xs={12} sm={12} md={4}>
                                                         <CardHeader color="primary" className={classes.cardHeader}>
-                                                            <h4>Plan Details</h4>
+                                                            <h4>Branch Details</h4>
                                                         </CardHeader>
                                                     </GridItem>
                                                 </GridContainer>
@@ -190,7 +188,7 @@ export default function PlansPage(props) {
                                                     <GridContainer>
                                                         <GridItem xs={12} sm={6} md={3}>
                                                             <CustomInput
-                                                                labelText="Plan Name"
+                                                                labelText="Branch Name"
                                                                 id="name"
                                                                 formControlProps={{
                                                                     fullWidth: true,
@@ -204,7 +202,7 @@ export default function PlansPage(props) {
                                                         </GridItem>
                                                         <GridItem xs={12} sm={6} md={3}>
                                                             <CustomInput
-                                                                labelText="Plan Type"
+                                                                labelText="Branch Type"
                                                                 id="type"
                                                                 formControlProps={{
                                                                     fullWidth: true,
@@ -279,7 +277,7 @@ export default function PlansPage(props) {
                                                                     />
                                                                 }
                                                                 classes={{ label: classes.label }}
-                                                                label="Active plan"
+                                                                label="Active branch"
                                                             />
                                                         </GridItem>
                                                     </GridContainer>
@@ -288,7 +286,7 @@ export default function PlansPage(props) {
                                                     <Button simple color="warning" size="lg" onClick={() => closeModal()}>
                                                         Discard
                                                     </Button>
-                                                    <Button simple color="primary" size="lg" type="submit">{id ? "Update" : "Create"} Plan</Button>
+                                                    <Button simple color="primary" size="lg" type="submit">{id ? "Update" : "Create"} Branch</Button>
                                                 </CardFooter>
                                             </form>
                                         </Card>
@@ -299,13 +297,7 @@ export default function PlansPage(props) {
                         <Footer whiteFont />
                     </div>
                 </>
-                : <div>
-                    This type of sneaking is not allowed
-                    <br />
-                    <img src="https://c.tenor.com/hcm5oQtYQ2AAAAAC/sneaky-sneaky-mom.gif" />
-                    <br />
-                    <Link to="/">Get out of here</Link>
-                </div>
+                : <SneakingComponent />
             }
         </div >
     );

@@ -17,7 +17,7 @@ const listBranches = () => async (dispatch, getState) => {
     }
 }
 
-const detailsBranch = (planId) => async (dispatch) => {
+const detailsBranch = (branchId) => async (dispatch) => {
     try {
         dispatch({ type: BRANCH_DETAILS_REQUEST, payload: planId });
         const { data } = await axios.get("/api/branches/" + planId);
@@ -27,7 +27,7 @@ const detailsBranch = (planId) => async (dispatch) => {
     }
 }
 
-const deleteBranch = (planId) => async (dispatch, getState) => {
+const deleteBranch = (branchId) => async (dispatch, getState) => {
     try {
         const { userSignin: { userInfo } } = getState();
         dispatch({ type: BRANCH_DELETE_REQUEST, payload: planId });
@@ -42,20 +42,20 @@ const deleteBranch = (planId) => async (dispatch, getState) => {
     }
 }
 
-const saveBranch = (plan) => async (dispatch, getState) => {
+const saveBranch = (branch) => async (dispatch, getState) => {
     console.log("saving plan " + plan.availability)
     try {
         dispatch({ type: BRANCH_SAVE_REQUEST, playload: plan });
         const { userSignin: { userInfo } } = getState();
         if (!plan._id) {
-            const { data } = await axios.post('/api/branches', plan, {
+            const { data } = await axios.post('/api/branches', branch, {
                 headers: {
                     'Authorization': 'Bearer ' + userInfo.token
                 }
             });
             dispatch({ type: BRANCH_SAVE_SUCCESS, payload: data });
         } else {
-            const { data } = await axios.put('/api/branches/' + plan._id, plan, {
+            const { data } = await axios.put('/api/branches/' + branch_id, branch, {
                 headers: {
                     'Authorization': 'Bearer ' + userInfo.token
                 }

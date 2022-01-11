@@ -20,6 +20,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput";
 import Button from "components/CustomButtons/Button.js";
+import SneakingComponent from "../SneakingComponent/SneakingComponent"
 // assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
@@ -299,13 +300,7 @@ export default function PlansPage(props) {
                         <Footer whiteFont />
                     </div>
                 </>
-                : <div>
-                    This type of sneaking is not allowed
-                    <br />
-                    <img src="https://c.tenor.com/hcm5oQtYQ2AAAAAC/sneaky-sneaky-mom.gif" />
-                    <br />
-                    <Link to="/">Get out of here</Link>
-                </div>
+                : <SneakingComponent />
             }
         </div >
     );

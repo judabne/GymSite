@@ -1,11 +1,11 @@
-const { BRANCH_LIST_REQUEST, BRANCH_LIST_SUCCESS, BRANCH_LIST_FAIL, BRANCH_ACTIVE_FAIL, BRANCH_ACTIVE_REQUEST, BRANCH_ACTIVE_SUCCESS, BRANCH_DETAILS_REQUEST, BRANCH_DETAILS_SUCCESS, BRANCH_DETAILS_FAIL, BRANCH_SAVE_FAIL, BRANCH_SAVE_REQUEST, BRANCH_SAVE_SUCCESS, BRANCH_DELETE_SUCCESS, BRANCH_DELETE_REQUEST, BRANCH_DELETE_FAIL } = require("constants/branchesConstants");
+const { BRANCH_LIST_REQUEST, BRANCH_LIST_SUCCESS, BRANCH_LIST_FAIL, BRANCH_DETAILS_REQUEST, BRANCH_DETAILS_SUCCESS, BRANCH_DETAILS_FAIL, BRANCH_SAVE_FAIL, BRANCH_SAVE_REQUEST, BRANCH_SAVE_SUCCESS, BRANCH_DELETE_SUCCESS, BRANCH_DELETE_REQUEST, BRANCH_DELETE_FAIL } = require("constants/branchesConstants");
 
 function branchesListReducer(state = { branches: [] }, action) {
     switch (action.type) {
         case BRANCH_LIST_REQUEST:
-            return { loading: true, plans: [] };
+            return { loading: true, branches: [] };
         case BRANCH_LIST_SUCCESS:
-            return { loading: false, plans: action.payload };
+            return { loading: false, branches: action.payload };
         case BRANCH_LIST_FAIL:
             return { loading: false, error: action.payload }
         default:
