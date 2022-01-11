@@ -1,4 +1,3 @@
-abc
 # Project Title
 
 MyGym
