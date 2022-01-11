@@ -32,6 +32,7 @@ function App() {
         <Switch>
           {/* optimize so that header and footer don't rerender unnecessarily*/}
           <Route path="/admin/plans" component={PlansPage} />
+          <Route path="/admin/branches" component={PlansPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/components" component={Components} />
           <Route path="/contact" component={ContactPage} />
