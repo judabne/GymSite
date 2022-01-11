@@ -43,7 +43,6 @@ const deleteBranch = (branchId) => async (dispatch, getState) => {
 }
 
 const saveBranch = (branch) => async (dispatch, getState) => {
-    console.log("saving plan " + plan.availability)
     try {
         dispatch({ type: BRANCH_SAVE_REQUEST, playload: plan });
         const { userSignin: { userInfo } } = getState();

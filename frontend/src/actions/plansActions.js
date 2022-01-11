@@ -54,7 +54,6 @@ const deletePlan = (planId) => async (dispatch, getState) => {
 }
 
 const savePlan = (plan) => async (dispatch, getState) => {
-    console.log("saving plan " + plan.availability)
     try {
         dispatch({ type: PLAN_SAVE_REQUEST, playload: plan });
         const { userSignin: { userInfo } } = getState();

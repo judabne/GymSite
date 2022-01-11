@@ -26,6 +26,7 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
 import image from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
+import PlanComponent from "./PlanComponent.js/PlanComponent";
 
 const useStyles = makeStyles(styles);
 const cbStyles = makeStyles(checkboxstyles);
@@ -142,27 +143,15 @@ export default function PlansPage(props) {
                                             </thead>
                                             <tbody>
                                                 {loading ? <tr className={classes.divider}><td>Loading...</td></tr> :
-                                                error ? <tr><td><Danger>Error retrieving data</Danger></td></tr>:
-                                                plans.map(plan => (<tr key={plan._id}>
-                                                    <td>{plan.planName}</td>
-                                                    {window.innerWidth >= 768 ?
-                                                        <>
-                                                            <td>{plan.planType}</td>
-                                                            <td>{plan.planDescription}</td>
-                                                            <td>{plan.planDuration}</td>
-                                                            <td>{plan.planPrice}</td>
-                                                            <td>{plan.planAvailable.toString()}</td>
-                                                        </>
-                                                        : null}
-                                                    <td>
-                                                        <Button size="sm" type="button" color="success" onClick={() => openModal(plan)}>
-                                                            Edit
-                                                        </Button>
-                                                        <Button size="sm" type="button" color="danger" onClick={() => deleteHandler(plan)}>
-                                                            Delete
-                                                        </Button>
-                                                    </td>
-                                                </tr>))}
+                                                    error ? <tr><td><Danger>Error retrieving data</Danger></td></tr> :
+                                                        plans.map(plan => (
+                                                            <PlanComponent
+                                                                key={plan._id}
+                                                                plan={plan}
+                                                                onEditClick={() => openModal(plan)}
+                                                                onDeleteClick={() => deleteHandler(plan)}
+                                                            />
+                                                        ))}
                                             </tbody>
                                         </table>
                                     </CardBody>
