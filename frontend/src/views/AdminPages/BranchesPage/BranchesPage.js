@@ -26,6 +26,7 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
 import image from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
+import BranchComponent from "./BranchComponent/BranchComponent";
 
 const useStyles = makeStyles(styles);
 const cbStyles = makeStyles(checkboxstyles);
@@ -70,6 +71,7 @@ export default function BranchesPage(props) {
         setId(''); // if we discard an edited branch and create a new one, we get old fields but new id
     }
     const openModal = (branch) => {
+        console.log("EDITING BRANCH" + branch._id)
         setModalVisible(true);
         setId(branch._id);
         setName(branch.branchName);
@@ -89,6 +91,7 @@ export default function BranchesPage(props) {
     }
 
     const deleteHandler = (branch) => {
+        console.log("Deleteing Branch " + branch._id)
         dispatch(deleteBranch(branch._id));
     }
 
@@ -142,24 +145,13 @@ export default function BranchesPage(props) {
                                             <tbody>
                                                 {loading ? <tr className={classes.divider}><td>Loading...</td></tr> :
                                                     error ? <tr><td><Danger>Error retrieving data</Danger></td></tr> :
-                                                        branches.map(branch => (<tr key={branch._id}>
-                                                            <td>{branch.city}</td>
-                                                            {window.innerWidth >= 768 ?
-                                                                <>
-                                                                    <td>{branch.description}</td>
-                                                                    <td><img src={branch.image} style={{ width: "5vw" }}></img></td>
-                                                                </>
-                                                                : null}
-                                                            <td style={{ width: "15vw" }}>
-                                                                <Button size="sm" type="button" color="success" onClick={() => openModal(branch)}>
-                                                                    Edit
-                                                                </Button>
-                                                                <Button size="sm" type="button" color="danger" onClick={() => deleteHandler(branch)}>
-                                                                    Delete
-                                                                </Button>
-                                                            </td>
-
-                                                        </tr>))}
+                                                        branches.map(branch => (
+                                                            <BranchComponent
+                                                                key={branch._id}
+                                                                branch={branch}
+                                                                onEditClick={() => openModal(branch)}
+                                                                onDeleteClick={() => deleteHandler(branch)} />
+                                                        ))}
                                             </tbody>
                                         </table>
                                     </CardBody>
