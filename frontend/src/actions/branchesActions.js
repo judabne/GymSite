@@ -19,8 +19,8 @@ const listBranches = () => async (dispatch, getState) => {
 
 const detailsBranch = (branchId) => async (dispatch) => {
     try {
-        dispatch({ type: BRANCH_DETAILS_REQUEST, payload: planId });
-        const { data } = await axios.get("/api/branches/" + planId);
+        dispatch({ type: BRANCH_DETAILS_REQUEST, payload: branchId });
+        const { data } = await axios.get("/api/branches/" + branchId);
         dispatch({ type: BRANCH_DETAILS_SUCCESS, payload: data })
     } catch (error) {
         dispatch({ type: BRANCH_DETAILS_FAIL, payload: error.message })
@@ -30,8 +30,8 @@ const detailsBranch = (branchId) => async (dispatch) => {
 const deleteBranch = (branchId) => async (dispatch, getState) => {
     try {
         const { userSignin: { userInfo } } = getState();
-        dispatch({ type: BRANCH_DELETE_REQUEST, payload: planId });
-        const { data } = await axios.delete("/api/branches/" + planId, {
+        dispatch({ type: BRANCH_DELETE_REQUEST, payload: branchId });
+        const { data } = await axios.delete("/api/branches/" + branchId, {
             headers: {
                 Authorization: 'Bearer ' + userInfo.token
             }
@@ -43,10 +43,13 @@ const deleteBranch = (branchId) => async (dispatch, getState) => {
 }
 
 const saveBranch = (branch) => async (dispatch, getState) => {
+    console.log("saving")
+    console.log(branch)
     try {
-        dispatch({ type: BRANCH_SAVE_REQUEST, playload: plan });
+        dispatch({ type: BRANCH_SAVE_REQUEST, playload: branch });
         const { userSignin: { userInfo } } = getState();
-        if (!plan._id) {
+        if (!branch._id) {
+            console.log("I am here")
             const { data } = await axios.post('/api/branches', branch, {
                 headers: {
                     'Authorization': 'Bearer ' + userInfo.token
@@ -54,7 +57,7 @@ const saveBranch = (branch) => async (dispatch, getState) => {
             });
             dispatch({ type: BRANCH_SAVE_SUCCESS, payload: data });
         } else {
-            const { data } = await axios.put('/api/branches/' + branch_id, branch, {
+            const { data } = await axios.put('/api/branches/' + branch._id, branch, {
                 headers: {
                     'Authorization': 'Bearer ' + userInfo.token
                 }

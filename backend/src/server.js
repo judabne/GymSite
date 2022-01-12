@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute';
 import plansRoute from './routes/plansRoute';
+import branchesRoute from './routes/branchesRoute';
 import Plan from './models/planModel';
 import User from './models/userModel';
 import Payment from './models/paymentModel';
@@ -25,9 +26,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);
 app.use("/api/plans", plansRoute);
-app.get("/api/branches", (req, res) => {
-    res.send(data.branches);
-});
+app.use("/api/branches", branchesRoute);
 
 app.get('/api/secret/:id', isAuth, async (req, res) => {
     try {

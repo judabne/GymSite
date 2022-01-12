@@ -24,7 +24,7 @@ import SneakingComponent from "../SneakingComponent/SneakingComponent"
 // assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
-import image from "assets/img/bg7.jpg";
+import bgimage from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
 import BranchComponent from "./BranchComponent/BranchComponent";
 
@@ -39,10 +39,10 @@ export default function BranchesPage(props) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [id, setId] = useState('');
-    const [name, setName] = useState('');
-    const [duration, setDuration] = useState('');
-    const [type, setType] = useState('');
+    const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
+    const [image, setImage] = useState('');
+
     const [price, setPrice] = useState('');
     const [availability, setAvailability] = useState(false);
 
@@ -74,19 +74,16 @@ export default function BranchesPage(props) {
         console.log("EDITING BRANCH" + branch._id)
         setModalVisible(true);
         setId(branch._id);
-        setName(branch.branchName);
-        setDuration(branch.branchDuration);
-        setType(branch.branchType);
+        setCity(branch.branchCity);
         setDescription(branch.branchDescription);
-        setPrice(branch.branchPrice);
-        setAvailability(branch.branchAvailable);
+        setImage(branch.branchImage);
     }
 
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveBranch({
             _id: id,
-            name, duration, type, description, price, availability
+            city, description, image
         }))
     }
 
@@ -111,7 +108,7 @@ export default function BranchesPage(props) {
                     <div
                         className={classes.pageHeader}
                         style={{
-                            backgroundImage: "url(" + image + ")",
+                            backgroundImage: "url(" + bgimage + ")",
                             backgroundSize: "cover",
                             backgroundPosition: "top center",
                         }}
@@ -178,72 +175,23 @@ export default function BranchesPage(props) {
                                                 {errorSave && <p className={classes.divider}><Danger>Error saving info. Please validate the fields and try again later</Danger></p>}
                                                 <CardBody>
                                                     <GridContainer>
-                                                        <GridItem xs={12} sm={6} md={3}>
+                                                        <GridItem xs={12} sm={6} md={4}>
                                                             <CustomInput
-                                                                labelText="Branch Name"
-                                                                id="name"
+                                                                labelText="Branch City"
+                                                                id="city"
                                                                 formControlProps={{
                                                                     fullWidth: true,
                                                                 }}
                                                                 inputProps={{
                                                                     type: "text",
-                                                                    value: name,
-                                                                    onChange: (e) => setName(e.target.value),
+                                                                    value: city,
+                                                                    onChange: (e) => setCity(e.target.value),
                                                                 }}
                                                             />
                                                         </GridItem>
-                                                        <GridItem xs={12} sm={6} md={3}>
+                                                        <GridItem xs={12} sm={6} md={4}>
                                                             <CustomInput
-                                                                labelText="Branch Type"
-                                                                id="type"
-                                                                formControlProps={{
-                                                                    fullWidth: true,
-                                                                }}
-                                                                inputProps={{
-                                                                    type: "text",
-                                                                    value: type,
-                                                                    onChange: (e) => setType(e.target.value)
-                                                                }}
-                                                            />
-                                                        </GridItem>
-                                                        <GridItem xs={12} sm={6} md={3}>
-                                                            <CustomInput
-                                                                labelText="Duration (months)"
-                                                                id="duration"
-                                                                formControlProps={{
-                                                                    fullWidth: true,
-                                                                }}
-                                                                inputProps={{
-                                                                    type: "number",
-                                                                    inputProps: {
-                                                                        min: 1,
-                                                                        max: 12,
-                                                                    },
-                                                                    value: duration,
-                                                                    onChange: (e) => setDuration(e.target.value)
-                                                                }}
-                                                            />
-                                                        </GridItem>
-                                                        <GridItem xs={12} sm={6} md={3}>
-                                                            <CustomInput
-                                                                labelText="Price (USD)"
-                                                                id="price"
-                                                                formControlProps={{
-                                                                    fullWidth: true,
-                                                                }}
-                                                                inputProps={{
-                                                                    type: "number",
-                                                                    inputProps: {
-                                                                        min: 5,
-                                                                    },
-                                                                    value: price,
-                                                                    onChange: (e) => setPrice(e.target.value)
-                                                                }}
-                                                            />
-                                                        </GridItem>
-                                                        <GridItem xs={12} sm={12} md={12}>
-                                                            <CustomInput
-                                                                labelText="Description"
+                                                                labelText="Branch Description"
                                                                 id="description"
                                                                 formControlProps={{
                                                                     fullWidth: true,
@@ -251,27 +199,25 @@ export default function BranchesPage(props) {
                                                                 inputProps={{
                                                                     type: "text",
                                                                     value: description,
-                                                                    onChange: (e) => setDescription(e.target.value),
+                                                                    onChange: (e) => setDescription(e.target.value)
                                                                 }}
                                                             />
                                                         </GridItem>
-                                                        <GridItem xs={12} sm={12} md={12}>
-                                                            <FormControlLabel
-                                                                style={{ position: "absolute", right: "0px" }}
-                                                                control={
-                                                                    <Checkbox
-                                                                        checked={availability}
-                                                                        tabIndex={-1}
-                                                                        onClick={() => setAvailability(!availability)}
-                                                                        checkedIcon={<Check className={cbclasses.checkedIcon} />}
-                                                                        icon={<Check className={cbclasses.uncheckedIcon} />}
-                                                                        classes={{ checked: cbclasses.checked }}
-                                                                    />
-                                                                }
-                                                                classes={{ label: classes.label }}
-                                                                label="Active branch"
+                                                        <GridItem xs={12} sm={12} md={4}>
+                                                            <CustomInput
+                                                                labelText="Image"
+                                                                id="image"
+                                                                formControlProps={{
+                                                                    fullWidth: true,
+                                                                }}
+                                                                inputProps={{
+                                                                    type: "text",
+                                                                    value: image,
+                                                                    onChange: (e) => setImage(e.target.value)
+                                                                }}
                                                             />
                                                         </GridItem>
+
                                                     </GridContainer>
                                                 </CardBody>
                                                 <CardFooter className={classes.cardFooter}>

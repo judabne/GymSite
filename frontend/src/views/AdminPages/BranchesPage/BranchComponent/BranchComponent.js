@@ -6,11 +6,11 @@ export default function BranchComponent({branch, onEditClick, onDeleteClick}) {
     // const {branch} = props; 
     return (
         <tr>
-            <td>{branch.city}</td>
+            <td>{branch.branchCity}</td>
             {window.innerWidth >= 768 ?
                 <>
-                    <td>{branch.description}</td>
-                    <td><img src={branch.image} style={{ width: "5vw" }}></img></td>
+                    <td>{branch.branchDescription}</td>
+                    <td><img src={branch.branchImage} style={{ width: "5vw" }}></img></td>
                 </>
                 : null}
             <td style={{ width: "15vw" }}>
