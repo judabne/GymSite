@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -15,8 +16,6 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
-import { Link } from "@material-ui/core";
-import LinkButton from "components/LinkButton/LinkButton";
 
 const useStyles = makeStyles(styles);
 
@@ -62,7 +61,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
   });
-  const brandComponent = <LinkButton className={classes.title} to="/">My Gym</LinkButton>
+  const brandComponent = <Link className={classes.title} to="/">My Gym</Link>
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
