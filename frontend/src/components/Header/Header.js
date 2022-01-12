@@ -15,6 +15,8 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
+import { Link } from "@material-ui/core";
+import LinkButton from "components/LinkButton/LinkButton";
 
 const useStyles = makeStyles(styles);
 
@@ -60,7 +62,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
   });
-  const brandComponent = <Button href="/" className={classes.title}>My Gym</Button>;
+  const brandComponent = <LinkButton className={classes.title} to="/">My Gym</LinkButton>
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>

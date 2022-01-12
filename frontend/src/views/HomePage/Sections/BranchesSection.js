@@ -23,6 +23,7 @@ export default function BranchesSection() {
 
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(branches.length)
     if (branches.length === 0)
       dispatch(listBranches());
     return () => {

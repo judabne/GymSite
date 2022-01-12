@@ -3,13 +3,8 @@ const { BRANCH_LIST_REQUEST, BRANCH_LIST_SUCCESS, BRANCH_LIST_FAIL, BRANCH_DETAI
 
 const listBranches = () => async (dispatch, getState) => {
     try {
-        const { userSignin: { userInfo } } = getState();
         dispatch({ type: BRANCH_LIST_REQUEST });
-        const { data } = await axios.get("/api/branches", {
-            headers: {
-                'Authorization': 'Bearer ' + userInfo.token
-            }
-        });
+        const { data } = await axios.get("/api/branches");
         dispatch({ type: BRANCH_LIST_SUCCESS, payload: data });
     }
     catch (error) {
