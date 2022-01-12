@@ -5,7 +5,6 @@ import { isAuth, isAdmin } from '../util';
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    console.log("sending branches")
     const branches = await Branch.find();
     res.send(branches);
 });

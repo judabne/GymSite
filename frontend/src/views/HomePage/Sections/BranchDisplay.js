@@ -26,7 +26,6 @@ export default function BranchDisplay({ branch }) {
 
     return (
         <GridItem xs={12} sm={6} md={4} >
-            {console.log(branch)}
             <Card plain>
                 <GridItem xs={12} sm={12} md={7} className={classes.itemGrid}>
                     <div className={circular}>

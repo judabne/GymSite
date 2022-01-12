@@ -34,7 +34,6 @@ const cbStyles = makeStyles(checkboxstyles);
 export default function BranchesPage(props) {
 
     const classes = useStyles();
-    const cbclasses = cbStyles();
     const { ...rest } = props;
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -42,9 +41,6 @@ export default function BranchesPage(props) {
     const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
-
-    const [price, setPrice] = useState('');
-    const [availability, setAvailability] = useState(false);
 
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin
@@ -114,7 +110,6 @@ export default function BranchesPage(props) {
                         }}
                     >
                         <div className={classes.container}>
-
                             <Card>
                                 <form className={classes.form}>
                                     <GridContainer justify="center">

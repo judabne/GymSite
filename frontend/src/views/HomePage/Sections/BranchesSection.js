@@ -9,24 +9,27 @@ import GridContainer from "components/Grid/GridContainer.js";
 
 import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
 import BranchDisplay from "./BranchDisplay";
+import { useDispatch, useSelector } from "react-redux";
+import { listBranches } from "actions/branchesActions";
+import Danger from "components/Typography/Danger";
 
 const useStyles = makeStyles(styles);
 
 export default function BranchesSection() {
   const classes = useStyles();
 
-  const [branches, setBranches] = useState([]);
+  const branchesList = useSelector(state => state.branchesList);
+  const { loading, branches, error } = branchesList;
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get("/api/branches");
-      setBranches(data);
-    }
-    fetchData();
+    if (branches.length === 0)
+      dispatch(listBranches());
     return () => {
       //cleanup
     };
   }, [])
+
   return (
 
     <div className={classes.section}>
@@ -38,12 +41,14 @@ export default function BranchesSection() {
         relaxing at your hometown, you will find a branch near you.
       </h5>
       <div>
-        <GridContainer>
-          {
-            branches.map(branch => <BranchDisplay branch={branch} key={branch._id} />
-            )
-          }
-        </GridContainer>
+        {loading ? <h5 className={classes.description}>Please be patient. Our branches will load shortly</h5> :
+          error ? <Danger>An error has occured while loading the branches. Please try again in a bit.</Danger> :
+            <GridContainer>
+              {
+                branches && branches.map(branch => <BranchDisplay branch={branch} key={branch._id} />)
+              }
+            </GridContainer>
+        }
       </div>
     </div>
   );

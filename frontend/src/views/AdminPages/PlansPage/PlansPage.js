@@ -113,7 +113,6 @@ export default function PlansPage(props) {
                         }}
                     >
                         <div className={classes.container}>
-
                             <Card>
                                 <form className={classes.form}>
                                     <GridContainer justify="center">
