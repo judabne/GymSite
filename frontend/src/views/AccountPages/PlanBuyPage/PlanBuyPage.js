@@ -50,7 +50,6 @@ export default function PlansBuyPage(props) {
                 }
             });
             const clientSecret = res.data['client_secret'];
-            console.log(clientSecret)
             setSecretKey(clientSecret);
         }
         fetchSecretKey();

@@ -22,6 +22,7 @@ import PlanBuyPage from "views/AccountPages/PlanBuyPage/PlanBuyPage";
 import PlanBuyResult from "views/AccountPages/PlanBuyPage/PlanBuyResult/PlanBuyResult"
 import { Provider } from "react-redux";
 import store from './store';
+import BranchPage from "views/BranchPage/BranchPage";
 
 var hist = createBrowserHistory();
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/admin/plans" component={PlansPage} />
           <Route path="/admin/branches" component={BranchesPage} />
           <Route path="/about" component={AboutPage} />
+          <Route path="/branch/:id" component={BranchPage} />
           <Route path="/components" component={Components} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/jobs" component={WorkPage} />

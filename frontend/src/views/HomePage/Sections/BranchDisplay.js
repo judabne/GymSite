@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -32,10 +33,12 @@ export default function BranchDisplay({ branch }) {
                         <img src={branch.branchImage} alt={branch.branchCity + " image"} className={imageClasses} />
                     </div>
                 </GridItem>
-                <h4 className={classes.cardTitle}>
-                    {branch.branchCity}
-                    <br />
-                </h4>
+                <Link to={"/branch/" + branch._id}>
+                    <h4 className={classes.cardTitle}>
+                        {branch.branchCity}
+                        <br />
+                    </h4>
+                </Link>
                 <CardBody>
                     <p className={classes.branchDescription}>
                         {branch.description}

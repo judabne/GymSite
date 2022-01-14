@@ -34,7 +34,8 @@ export default function PlanBuyPage(props) {
     
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(activePlans());
+        if (plans.length === 0)
+            dispatch(activePlans());
         return () => {
             //
         };
@@ -71,7 +72,7 @@ export default function PlanBuyPage(props) {
                             <Primary><h5>You can purchase memberships up to a year ahead</h5></Primary>
                             {loading ? <p className={classes.divider}>Loading...</p> :
                                 error ? <Danger>Error retrieving data</Danger> :
-                                    <GridContainer justify="left">
+                                    <GridContainer justify="flex-start">
                                         {plans.map(plan =>
                                             <PurchaseableMembership key={plan._id} plan={plan} />
                                         )}

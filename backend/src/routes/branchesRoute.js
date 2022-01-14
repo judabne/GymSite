@@ -10,8 +10,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", isAuth, isAdmin, async (req, res) => {
-    console.log("adding branch");
-    console.log(req.body)
     try {
         const branch = new Branch({
             branchCity: req.body.city,
@@ -41,7 +39,6 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
     try {
         const branchId = req.params.id;
         const branch = await Branch.findById(branchId);
-        console.log(branch);
         if (branch) {
             branch.branchCity = req.body.city;
             branch.branchDescription = req.body.description;
