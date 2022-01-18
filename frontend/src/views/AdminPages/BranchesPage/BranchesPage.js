@@ -41,6 +41,9 @@ export default function BranchesPage(props) {
     const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [latitude, setLatitude] = useState('');
+    
 
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin
@@ -73,13 +76,15 @@ export default function BranchesPage(props) {
         setCity(branch.branchCity);
         setDescription(branch.branchDescription);
         setImage(branch.branchImage);
+        setLongitude(branch.branchLocation && branch.branchLocation.coordinates[0]);
+        setLatitude(branch.branchLocation && branch.branchLocation.coordinates[1]);
     }
 
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveBranch({
             _id: id,
-            city, description, image
+            city, description, image, longitude, latitude
         }))
     }
 
@@ -209,6 +214,34 @@ export default function BranchesPage(props) {
                                                                     type: "text",
                                                                     value: image,
                                                                     onChange: (e) => setImage(e.target.value)
+                                                                }}
+                                                            />
+                                                        </GridItem>
+                                                        <GridItem xs={12} sm={12} md={4}>
+                                                            <CustomInput
+                                                                labelText="Longitude (E/W)"
+                                                                id="longitude"
+                                                                formControlProps={{
+                                                                    fullWidth: true,
+                                                                }}
+                                                                inputProps={{
+                                                                    type: "number",
+                                                                    value: longitude,
+                                                                    onChange: (e) => setLongitude(e.target.value)
+                                                                }}
+                                                            />
+                                                        </GridItem>
+                                                        <GridItem xs={12} sm={12} md={4}>
+                                                            <CustomInput
+                                                                labelText="Latitude (N/S)"
+                                                                id="latitude"
+                                                                formControlProps={{
+                                                                    fullWidth: true,
+                                                                }}
+                                                                inputProps={{
+                                                                    type: "number",
+                                                                    value: latitude,
+                                                                    onChange: (e) => setLatitude(e.target.value)
                                                                 }}
                                                             />
                                                         </GridItem>
