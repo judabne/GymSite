@@ -70,11 +70,16 @@ export default function BranchPage(props) {
                                             <CardBody>
                                                 <h5>{branch.branchDescription}</h5>
                                             </CardBody>
-                                            <CardFooter className={classes.cardFooter}>
-                                                <Button simple color="success" size="lg">
-                                                    Go there
-                                                </Button>
-                                            </CardFooter>
+                                            {branch.branchLocation &&
+                                                <CardFooter className={classes.cardFooter}>
+                                                    <Button simple color="success" size="lg"
+                                                        href={"https://www.google.com/maps/search/?api=1&query=" + branch.branchLocation.coordinates[1] + "," + branch.branchLocation.coordinates[0]}
+                                                        target="_blank"
+                                                    >
+                                                        Go there
+                                                    </Button>
+                                                </CardFooter>
+                                            }
                                         </>
                                 }
                             </Card>
