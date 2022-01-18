@@ -73,7 +73,7 @@ const savePlan = (plan) => async (dispatch, getState) => {
             dispatch({ type: PLAN_SAVE_SUCCESS, payload: data });
         }
 
-    } catch {
+    } catch (error) {
         dispatch({ type: PLAN_SAVE_FAIL, payload: error.message });
     }
 }
