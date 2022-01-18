@@ -11,8 +11,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", isAuth, isAdmin, async (req, res) => {
     let branch = new Branch();
-    saveBranchData(req, res, branch)
-
+    saveBranchData(req, res, branch);
 })
 
 router.get('/:id', async (req, res) => {
@@ -60,7 +59,6 @@ const saveBranchData = async (req, res, branch) => {
     } catch {
         return res.status(500).send({ message: 'Error in saving branch.' })
     }
-
 }
 
 export default router;

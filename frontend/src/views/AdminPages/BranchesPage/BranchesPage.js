@@ -70,7 +70,6 @@ export default function BranchesPage(props) {
         setId(''); // if we discard an edited branch and create a new one, we get old fields but new id
     }
     const openModal = (branch) => {
-        console.log("EDITING BRANCH" + branch._id)
         setModalVisible(true);
         setId(branch._id);
         setCity(branch.branchCity);
