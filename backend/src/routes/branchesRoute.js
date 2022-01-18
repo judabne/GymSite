@@ -10,12 +10,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", isAuth, isAdmin, async (req, res) => {
-    try {
-        let branch = new Branch();
-        saveBranchData(req,res,branch)
-    } catch {
-        return res.status(500).send({ message: 'Error in creating branch.' })
-    }
+    let branch = new Branch();
+    saveBranchData(req, res, branch)
+
 })
 
 router.get('/:id', async (req, res) => {
@@ -26,7 +23,6 @@ router.get('/:id', async (req, res) => {
         res.status(404).send({ message: 'Branch Not Found.' });
     }
 });
-
 
 router.put("/:id", isAuth, isAdmin, async (req, res) => {
     try {
@@ -51,15 +47,20 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
     }
 });
 
-const saveBranchData = async (req,res,branch) => {
-    branch.branchCity = req.body.city;
-    branch.branchDescription = req.body.description;
-    branch.branchImage = req.body.image;
-    branch.branchLocation = { "coordinates": [req.body.longitude, req.body.latitude] }
-    const updatedBranch = await branch.save();
-    if (updatedBranch) {
-        return res.status(200).send({ message: 'Branch Saved', data: updatedBranch })
+const saveBranchData = async (req, res, branch) => {
+    try {
+        branch.branchCity = req.body.city;
+        branch.branchDescription = req.body.description;
+        branch.branchImage = req.body.image;
+        branch.branchLocation = { "coordinates": [req.body.longitude, req.body.latitude] }
+        const updatedBranch = await branch.save();
+        if (updatedBranch) {
+            return res.status(200).send({ message: 'Branch Saved', data: updatedBranch })
+        }
+    } catch {
+        return res.status(500).send({ message: 'Error in saving branch.' })
     }
+
 }
 
 export default router;

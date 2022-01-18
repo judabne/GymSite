@@ -60,7 +60,7 @@ const saveBranch = (branch) => async (dispatch, getState) => {
             dispatch({ type: BRANCH_SAVE_SUCCESS, payload: data });
         }
 
-    } catch {
+    } catch (error) {
         dispatch({ type: BRANCH_SAVE_FAIL, payload: error.message });
     }
 }
