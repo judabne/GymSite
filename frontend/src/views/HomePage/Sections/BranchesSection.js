@@ -12,6 +12,7 @@ import BranchDisplay from "./BranchDisplay";
 import { useDispatch, useSelector } from "react-redux";
 import { listBranches } from "actions/branchesActions";
 import Danger from "components/Typography/Danger";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -42,7 +43,7 @@ export default function BranchesSection() {
         relaxing at your hometown, you will find a branch near you.
       </h5>
       <div>
-        {loading ? <h5 className={classes.description}>Please be patient. Our branches will load shortly</h5> :
+        {loading ? <h5 className={classes.description}><Loader /></h5> :
           error ? <Danger>An error has occured while loading the branches. Please try again in a bit.</Danger> :
             <GridContainer>
               {

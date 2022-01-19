@@ -21,6 +21,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Danger from "components/Typography/Danger";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import image from "assets/img/bg7.jpg";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -80,7 +81,7 @@ export default function LoginPage(props) {
                     <h4>Login</h4>
                   </CardHeader>
                   <p className={classes.divider}><Link to="/register">New here? Create an account</Link></p>
-                  {loading && <p className={classes.divider}>Loading...</p>}
+                  {loading && <p className={classes.divider}><Loader /></p>}
                   {error && <p className={classes.divider}><Danger>{error}</Danger></p>}
                   <CardBody>
                     <CustomInput
