@@ -58,6 +58,9 @@ const profilePageStyle = {
     margin: "20px auto 50px auto",
     textAlign: "center",
   },
+  textRight: {
+    textAlign: "right"
+  }
 };
 
 export default profilePageStyle;

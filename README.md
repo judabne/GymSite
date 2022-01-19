@@ -7,30 +7,33 @@ MyGym
 This is a fullstack project for a gym with multiple branches. It allows admins to manage branches, users, and gym plans and classes.
 It also allows registered users to purchase memberships, locate branches, and checkin easily.
 
-The technologies used here are ReactJS, Node.js (Express), and MongoDB (Mongoose)
+The technologies used here are ReactJS, Node.js (Express), and MongoDB (Mongoose). The project also processes payments using Stripe.
 
 ## Getting Started
 
 ### Dependencies
 
 * This project needs Nodejs and NPM to run.
-* Clone this repo and run npm install. Then navigate to to the frontend folder and run npm install there as well.
-* To start the project use npm start in the project's root to launch the backend
+* You need to have MongoDB installed and running to run this project.
 
 ### Installing
 
 * Clone this repo
-* Run npm install
-* Navigate to the frontend folder (cd frontend) and run npm install there as well
+* Navigate to the project's root in a terminal and type ```cd frontend && npm install && cd ../backend && npm install```
+* If you need an admin account (to manage plans/branches...), make sure MongoDB is running and do the following:
+    * Start the backend. In a terminal go to the project's root folder and type ```cd backend && npm start```
+    * In your browser type ```http://localhost:5000/api/users/createadmin```
 
 ### Executing program
 
-* In the project's root run npm start
-* Navigate to the frontend folder and run npm start
+* Make sure MongoDB is running.
+* Start the backend. In a terminal go to the project's root folder and type ```cd backend && npm start```
+* Start the frontend. In another terminal go to the project's root folder and type ```cd frontend && npm start```
 
 ## Authors
 
-This project is coded by Judabne (https://github.com/judabne) and reviewed by Tom Philip (https://github.com/tommysqueak)
+This project is coded by Judabne (https://github.com/judabne) and reviewed by Tom Philip (https://github.com/tommysqueak).
+Bashar Harfoush (https://github.com/basharh) suggested improvements for the project.
 
 ## Version History
 

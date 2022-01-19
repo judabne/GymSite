@@ -5,7 +5,6 @@ import { isAuth, isAdmin } from '../util';
 const router = express.Router();
 
 router.get("/", isAuth, isAdmin, async (req, res) => {
-    console.log("sending all")
     const plans = await Plan.find();
     res.send(plans);
 });
@@ -25,7 +24,6 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
             planDescription: req.body.description,
             planAvailable: req.body.availability
         });
-        console.log(plan);
         const newPlan = await plan.save();
         if (newPlan) {
             return res.status(201).send({ message: 'New Plan Created', data: newPlan })
@@ -77,33 +75,6 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
         res.send("Error in deletion")
     }
 });
-
-// router.get("/buy/:id", isAuth, async (req, res) => {
-//     console.log(req.user)
-//     try {
-//         const user = await User.findOne({ _id: req.user.id })
-//         const email = user.email;
-//         const plan = await Plan.findOne({ _id: req.params.id1 });
-//         const payAmount = plan.planPrice * 100;
-
-//         const paymentIntent = await stripe.paymentIntents.create({
-//             amount: payAmount,
-//             currency: 'usd',
-//             metadata: { integration_check: 'accept_a_payment' },
-//             recepient_email: email
-//         })
-
-//         var currentDate = new Date();
-//         var futureDate = new Date(currentDate);
-//         futureDate.setMonth(futureDate.getMonth() + 1);
-
-//         user.expiry = futureDate;
-
-//         res.json({ 'client_secret': paymentIntent['client_secret'] });
-//     } catch {
-//         res.send("Error in processing payment");
-//     }
-// })
 
 export default router;
 

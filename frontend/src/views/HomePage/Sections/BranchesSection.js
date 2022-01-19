@@ -4,9 +4,6 @@ import axios from "axios";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
-// @material-ui/icons
-
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -22,7 +19,6 @@ export default function BranchesSection() {
   const classes = useStyles();
   const imageClasses = classNames(
     classes.imgFluid,
-    
     classes.imgRounded,
     classes.circularImg
   );

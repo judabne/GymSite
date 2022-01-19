@@ -1,10 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
-// @material-ui/icons
 
 // core components
 import Header from "components/Header/Header.js";
@@ -52,15 +51,17 @@ export default function LandingPage(props) {
                 Join our classes for a fun way to get fit.
               </h4>
               <br />
+              <Link to="/purchase">
               <Button
                 color="danger"
                 size="lg"
-                href="https://www.youtube.com/watch?v=wkTFd3QZSP0"
+                href="/purchase"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Inquire More
+                View Plans
               </Button>
+              </Link>
             </GridItem>
           </GridContainer>
         </div>

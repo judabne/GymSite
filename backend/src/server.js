@@ -10,9 +10,7 @@ import Plan from './models/planModel';
 import User from './models/userModel';
 import Payment from './models/paymentModel';
 import { isAuth } from './util';
-
-const bcrypt = require('bcrypt');
-const stripe = require('stripe')('sk_test_51JiCwaBQcQnzL9cb9ImcFc4aGZK9TmkfGp6tdbTP7JLQabIZEuHa2xnpcIuAqTOxWDodWRbBvuNQRknxjAyXnLMs00xOnZqz0k');
+const stripe = require('stripe')(config.STRIPE_SK);
 
 dotenv.config();
 
@@ -34,7 +32,6 @@ app.get("/api/branches", (req, res) => {
 app.get('/api/secret/:id', isAuth, async (req, res) => {
     try {
         const plan = await Plan.findOne({ _id: req.params.id });
-        console.log(plan.planPrice)
         const payAmount = plan.planPrice * 100;
         const intent = await stripe.paymentIntents.create({
             amount: payAmount,
@@ -56,12 +53,11 @@ app.get('/api/secret/:id', isAuth, async (req, res) => {
 app.put('/api/payment/:pi', async (req, res) => {
     const paymentIntent = await Payment.findOne({ paymentIntent: req.params.pi });
     if (paymentIntent) {
-        res.status(200).send({ msg: "This payment was already processed." })
+        res.status(200).send({ message: "This payment was already processed." })
     }
     else {
         try {
             const paymentDetails = await stripe.paymentIntents.retrieve(req.params.pi)
-            console.log(paymentDetails.metadata.user)
             const user = await User.findById(paymentDetails.metadata.user);
             const plan = await Plan.findById(paymentDetails.metadata.plan);
             const payment = new Payment({
@@ -84,6 +80,7 @@ app.put('/api/payment/:pi', async (req, res) => {
                     expDate = new Date();
                 }
                 expDate.setMonth(expDate.getMonth() + plan.planDuration);
+                expDate.setHours(23,59,59,999);
                 user.plans[existingPlan].expiry = expDate;
                 // otherwise it wont recognize that these were modified
                 user.markModified('plans');
@@ -92,7 +89,7 @@ app.put('/api/payment/:pi', async (req, res) => {
             res.status(200).send(payment);
         } catch (e) {
             console.log("error " + e);
-            res.status(202).send({ msg: 'Your payment was received but did not completely process yet. Do not worry we will take care of it' })
+            res.status(202).send({ message: 'Your payment was received but did not completely process yet. Do not worry we will take care of it' })
         }
     }
 

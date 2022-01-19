@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { reloadUser } from "actions/userActions";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -19,6 +21,7 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import CardFooter from "components/Card/CardFooter";
 import { Link } from "react-router-dom";
 
+
 const useStyles = makeStyles(styles);
 
 export default function PlansBuyPage(props) {
@@ -32,16 +35,17 @@ export default function PlansBuyPage(props) {
     const payment_intent = new URLSearchParams(search).get('payment_intent');
     console.log(payment_intent)
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         const processIntent = async () => {
             const res = await axios.put('/api/payment/' + payment_intent, {
             });
             setStatusCode(res.status);
-            setResponse(res.data)
+            setResponse(res.data);
+            dispatch(reloadUser());
         }
         processIntent();
-        console.log(statusCode);
-        console.log(response);
         return () => {
             //
         };
@@ -78,14 +82,15 @@ export default function PlansBuyPage(props) {
                         <CardBody className={classes.divider}>
                             <h3 >Receipt No: {payment_intent}</h3>
                             <h4>
-                                {response.msg
-                                    ? response.msg
+                                {response.message
+                                    ? response.message
                                     : response.paymentPlanType && "Your " + response.paymentPlanType + " membership purchase was successful."
                                 } Please keep the receipt number for future reference.
                             </h4>
                         </CardBody>
                         <CardFooter className={classes.cardFooter}>
-                            <Link to="/account">Back to account</Link>
+                            {/* using <a> instead of <Link> because I want it to reload and use the new cookie */}
+                            <a href="/account">Back to account</a>
                         </CardFooter>
                     </Card>
                 </div>

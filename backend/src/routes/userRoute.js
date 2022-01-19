@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/userModel';
 import { getToken, isAuth } from '../util';
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt'
 
 const router = express.Router();
 
@@ -12,24 +12,14 @@ router.post("/signin", async (req, res) => {
     if (signinUser) {
         const validPassword = await bcrypt.compare(req.body.password, signinUser.password)
         if (validPassword) {
-            console.log("right pwd")
-            res.send({
-                _id: signinUser.id,
-                firstName: signinUser.firstname,
-                lastName: signinUser.lastname,
-                email: signinUser.email,
-                isAdmin: signinUser.isAdmin,
-                expiry: signinUser.expiry,
-                token: getToken(signinUser)
-            })
-            console.log(getToken(signinUser));
+            sendUserJson(signinUser, res)
         } else {
             console.log("auth failed");
-            res.status(401).send({ msg: 'Invalid email or password' });
+            res.status(401).send({ message: 'Invalid email or password' });
         }
     } else {
-        console.log("auth failed")
-        res.status(401).send({ msg: 'Invalid email or password' })
+        console.log("didn't find email")
+        res.status(401).send({ message: 'Email does not exist' })
     }
 })
 
@@ -37,7 +27,7 @@ router.post("/register", async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        console.log("REQ " + req.body.firstname + " hashedPassword " + hashedPassword);
+        console.log("Creating new user");
         const user = new User({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -46,22 +36,26 @@ router.post("/register", async (req, res) => {
         });
         const newUser = await user.save();
         if (newUser) {
-            res.send({
-                _id: newUser.id,
-                firstName: newUser.firstname,
-                lastName: newUser.lastname,
-                email: newUser.email,
-                isAdmin: newUser.isAdmin,
-                expiry: newUser.expiry,
-                token: getToken(newUser)
-            })
+            sendUserJson(newUser, res)
         } else {
-            res.status(401).send({ msg: 'Invalid user data' })
+            res.status(401).send({ message: 'Invalid user data' })
         }
     } catch {
-        res.status(401).send({ msg: 'Invalid user data' })
+        res.status(401).send({ message: 'Invalid user data' })
     }
-})
+});
+
+router.get("/reload", isAuth, async (req, res) => {
+    console.log("reloading user")
+    try {
+        const signinUser = await User.findOne({ _id: req.user._id });
+        if (signinUser) {
+            sendUserJson(signinUser, res)
+        }
+    } catch (error) {
+        res.send({ message: error.message });
+    }
+});
 
 router.get("/createadmin", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
@@ -75,10 +69,9 @@ router.get("/createadmin", async (req, res) => {
             isAdmin: true,
             expiry: "12-12-2021"
         });
-        console.log(user);
         const newUser = await user.save();
         res.send(newUser);
-        console.log("saved");
+        console.log("Admin created");
     } catch (error) {
         res.send({ message: error.message });
     }
@@ -93,5 +86,16 @@ router.get("/:id", isAuth, async (req, res) => {
     }
 });
 
-export default router;
+const sendUserJson = (user, res) => {
+    res.send({
+        _id: user.id,
+        firstName: user.firstname,
+        lastName: user.lastname,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        plans: user.plans,
+        token: getToken(user)
+    })
+}
 
+export default router;

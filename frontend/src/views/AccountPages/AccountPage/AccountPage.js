@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates classes
@@ -15,6 +15,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import Button from "components/CustomButtons/Button.js";
 import profile from "assets/img/dumbbells.jpg";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
+import ActiveMembership from "components/AcitveMembership/ActiveMembership.tsx";
 
 const useStyles = makeStyles(styles);
 
@@ -29,17 +30,15 @@ export default function Page(props) {
 
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
-  var description;
   var todayDate = new Date();
-  description = userInfo.isAdmin
-    ? "Who cares about your subscription? You're the admin!"
-    : userInfo.expiry > todayDate
-      ? "Your membership is active"
-      : "Your membership is not active currently"
+  const [activeMemberships, setActiveMemberships] = useState([]);
 
   useEffect(() => {
     if (!userInfo) {
-      props.history.push("/login");
+      history.push("/login");
+    } else {
+      console.log(userInfo)
+      setActiveMemberships(userInfo.plans.filter(plan => Date.parse(plan.expiry) > todayDate));
     }
     return () => {
 
@@ -47,6 +46,7 @@ export default function Page(props) {
   }, [userInfo]);
 
   return (
+    userInfo &&
     <div>
       <Header
         color="transparent"
@@ -82,9 +82,18 @@ export default function Page(props) {
             </GridContainer>
             <div className={classes.description}>
               <p>
-                {description}
+                {userInfo.isAdmin
+                  ? "Who cares about your subscription? You're the admin!"
+                  : "Welcome back!"}
               </p>
+
             </div>
+
+            {activeMemberships.length === 0
+              ? "You don't have any active memberships currently"
+              : activeMemberships.map((membership) => <ActiveMembership key={membership._id} planType={membership.planType} expiry={membership.expiry} classes={classes}/>)
+            }
+
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <Link to="/purchase"><Button type="button" color="primary" size="lg">Purchase membership</Button></Link>
@@ -95,6 +104,5 @@ export default function Page(props) {
       </div>
       <Footer />
     </div>
-
   );
 }
