@@ -17,14 +17,12 @@ import Button from "components/CustomButtons/Button.js";
 import SneakingComponent from "../SneakingComponent/SneakingComponent"
 // assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
 import bgimage from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
 import BranchComponent from "./BranchComponent/BranchComponent";
 import BranchEditComponent from "./BranchEditComponent/BranchEditComponent";
 
 const useStyles = makeStyles(styles);
-const cbStyles = makeStyles(checkboxstyles);
 
 export default function BranchesPage(props) {
 
@@ -63,7 +61,6 @@ export default function BranchesPage(props) {
     }
 
     const deleteHandler = (branch) => {
-        console.log("Deleteing Branch " + branch._id)
         dispatch(deleteBranch(branch._id));
     }
 

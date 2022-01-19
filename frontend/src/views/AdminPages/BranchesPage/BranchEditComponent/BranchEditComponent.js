@@ -40,12 +40,7 @@ export default function BranchEditComponent(props) {
             setLongitude(branch.branchLocation && branch.branchLocation.coordinates[0]);
             setLatitude(branch.branchLocation && branch.branchLocation.coordinates[1]);
         }
-
     }, [branch]);
-
-    console.log(branch)
-    console.log(city)
-    console.log(id)
 
     const submitHandler = (e) => {
         e.preventDefault();
