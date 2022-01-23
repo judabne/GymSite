@@ -21,6 +21,7 @@ import image from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
 import PlanComponent from "./PlanComponent.js/PlanComponent";
 import PlanEditComponent from "./PlanEditComponent/PlanEditComponent";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -95,26 +96,26 @@ export default function PlansPage(props) {
                                         </GridItem>
                                     </GridContainer>
                                     <CardBody>
-                                        <table className="table" style={{ width: "100%" }}>
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    {window.innerWidth >= 768 ?
-                                                        <>
-                                                            <th>Type</th>
-                                                            <th>Description</th>
-                                                            <th>Duration</th>
-                                                            <th>Price</th>
-                                                            <th>Availability</th>
-                                                        </>
-                                                        : null}
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {loading ? <tr className={classes.divider}><td>Loading...</td></tr> :
-                                                    error ? <tr><td><Danger>Error retrieving data</Danger></td></tr> :
-                                                        plans.map(plan => (
+                                        {loading ? <div style={{ textAlign: "center" }}><Loader /></div> :
+                                            error ? <div style={{ textAlign: "center" }}><Danger >Error retrieving data</Danger></div> :
+                                                <table className="table" style={{ width: "100%" }}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            {window.innerWidth >= 768 ?
+                                                                <>
+                                                                    <th>Type</th>
+                                                                    <th>Description</th>
+                                                                    <th>Duration</th>
+                                                                    <th>Price</th>
+                                                                    <th>Availability</th>
+                                                                </>
+                                                                : null}
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {plans.map(plan => (
                                                             <PlanComponent
                                                                 key={plan._id}
                                                                 plan={plan}
@@ -122,8 +123,9 @@ export default function PlansPage(props) {
                                                                 onDeleteClick={() => deleteHandler(plan)}
                                                             />
                                                         ))}
-                                            </tbody>
-                                        </table>
+                                                    </tbody>
+                                                </table>
+                                        }
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
                                         <Button type="button" simple size="lg" color="primary" onClick={() => openModal({})} disabled={modalVisible}>New Plan</Button>

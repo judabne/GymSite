@@ -21,6 +21,7 @@ import bgimage from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
 import BranchComponent from "./BranchComponent/BranchComponent";
 import BranchEditComponent from "./BranchEditComponent/BranchEditComponent";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -64,8 +65,6 @@ export default function BranchesPage(props) {
         dispatch(deleteBranch(branch._id));
     }
 
-    console.log("Branches component")
-
     return (
         <div>
             {userInfo && userInfo.isAdmin ?
@@ -97,31 +96,32 @@ export default function BranchesPage(props) {
                                         </GridItem>
                                     </GridContainer>
                                     <CardBody>
-                                        <table className="table" style={{ width: "100%" }}>
-                                            <thead>
-                                                <tr>
-                                                    <th>Location</th>
-                                                    {window.innerWidth >= 768 ?
-                                                        <>
-                                                            <th>Description</th>
-                                                            <th>Image</th>
-                                                        </>
-                                                        : null}
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {loading ? <tr className={classes.divider}><td>Loading...</td></tr> :
-                                                    error ? <tr><td><Danger>Error retrieving data</Danger></td></tr> :
-                                                        branches.map(branch => (
+                                        {loading ? <div style={{ textAlign: "center" }}><Loader /></div> :
+                                            error ? <div style={{ textAlign: "center" }}><Danger >Error retrieving data</Danger></div> :
+                                                <table className="table" style={{ width: "100%" }}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Location</th>
+                                                            {window.innerWidth >= 768 ?
+                                                                <>
+                                                                    <th>Description</th>
+                                                                    <th>Image</th>
+                                                                </>
+                                                                : null}
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {branches.map(branch => (
                                                             <BranchComponent
                                                                 key={branch._id}
                                                                 branch={branch}
                                                                 onEditClick={() => openModal(branch)}
                                                                 onDeleteClick={() => deleteHandler(branch)} />
                                                         ))}
-                                            </tbody>
-                                        </table>
+                                                    </tbody>
+                                                </table>
+                                        }
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
                                         <Button type="button" simple size="lg" color="primary" onClick={() => openModal()} disabled={modalVisible}>New Branch</Button>

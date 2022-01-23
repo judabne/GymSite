@@ -15,6 +15,7 @@ import Button from "components/CustomButtons/Button.js";
 // assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import Danger from "components/Typography/Danger";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -62,7 +63,7 @@ export default function BranchEditComponent(props) {
                                 </CardHeader>
                             </GridItem>
                         </GridContainer>
-                        {loadingSave && <p className={classes.divider}>Loading...</p>}
+                        {loadingSave && <p className={classes.divider}><Loader /></p>}
                         {errorSave && <p className={classes.divider}><Danger>Error saving info. Please validate the fields and try again later</Danger></p>}
                         <CardBody>
                             <GridContainer>

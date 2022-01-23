@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { listPlans, savePlan, deletePlan } from '../../../../actions/plansActions';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,6 +20,7 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import checkboxstyles from "assets/jss/material-kit-react/customCheckboxRadioSwitch.js";
 import Danger from "components/Typography/Danger";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 const cbStyles = makeStyles(checkboxstyles);
@@ -73,7 +73,7 @@ export default function PlanEditComponent(props) {
                                 </CardHeader>
                             </GridItem>
                         </GridContainer>
-                        {loadingSave && <p className={classes.divider}>Loading...</p>}
+                        {loadingSave && <p className={classes.divider}><Loader /></p>}
                         {errorSave && <p className={classes.divider}><Danger>Error saving info. Please validate the fields and try again later</Danger></p>}
                         <CardBody>
                             <GridContainer>

@@ -23,6 +23,7 @@ import { detailsPlan } from "actions/plansActions";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from "./CheckoutForm";
+import Loader from "components/Loader/Loader";
 const stripePromise = loadStripe("pk_test_51JiCwaBQcQnzL9cbRtyDblc4hlqXkJXA8T8D1e1u4p72VEIIEyITsKHhTfFwNXMhEVDsJh06PXUliftJs5CGyw3q00klWibzpP")
 
 const useStyles = makeStyles(styles);
@@ -90,7 +91,7 @@ export default function PlansBuyPage(props) {
                             </GridItem>
                         </GridContainer>
                         <CardBody>
-                            {loading ? <p className={classes.divider}>Loading...</p> :
+                            {loading ? <p className={classes.divider}><Loader /></p> :
                                 error && <Danger style={{ textAlign: "center" }}>Error retrieving data</Danger>}
                         </CardBody>
                         {
