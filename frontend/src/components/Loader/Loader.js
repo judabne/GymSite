@@ -1,7 +1,8 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import styles from './loaderStyle'
+import styles from './loaderStyle';
+
 const useStyles = makeStyles(styles);
 
 export default function Loader() {
