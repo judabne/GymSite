@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listBranches, saveBranch, deleteBranch } from '../../../actions/branchesActions';
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import cssClasses from "./BranchesPage.module.css";
 import Header from "components/Header/Header.js";
