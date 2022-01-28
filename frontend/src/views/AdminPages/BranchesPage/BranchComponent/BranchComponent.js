@@ -1,9 +1,9 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Button from "components/CustomButtons/Button.js";
 import classes from '../BranchesPage.module.css';
 
 export default function BranchComponent({ branch, onEditClick, onDeleteClick }) {
-    // const {branch} = props; 
     return (
         <tr>
             <td>{branch.branchCity}</td>
@@ -19,4 +19,10 @@ export default function BranchComponent({ branch, onEditClick, onDeleteClick }) 
             </td>
         </tr>
     )
+}
+
+BranchComponent.PropTypes = {
+    branch: PropTypes.object.isRequired,
+    onEditClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
 }

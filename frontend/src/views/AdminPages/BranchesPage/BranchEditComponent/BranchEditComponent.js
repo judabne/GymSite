@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { saveBranch } from '../../../../actions/branchesActions';
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
@@ -12,7 +10,6 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput";
 import Button from "components/CustomButtons/Button.js";
-// assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import Danger from "components/Typography/Danger";
 import Loader from "components/Loader/Loader";
@@ -23,8 +20,7 @@ export default function BranchEditComponent(props) {
     const classes = useStyles();
     const { branch, loadingSave, errorSave, onCloseClick, ...rest } = props;
 
-    // const {branch} = props; 
-    const [id, setId] = useState();
+    const [_id, setId] = useState();
     const [city, setCity] = useState();
     const [description, setDescription] = useState();
     const [image, setImage] = useState();
@@ -46,8 +42,7 @@ export default function BranchEditComponent(props) {
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveBranch({
-            _id: id,
-            city, description, image, longitude, latitude
+            id, city, description, image, longitude, latitude
         }))
     }
 
@@ -144,7 +139,7 @@ export default function BranchEditComponent(props) {
                             <Button simple color="warning" size="lg" onClick={onCloseClick}>
                                 Discard
                             </Button>
-                            <Button simple color="primary" size="lg" type="submit">{id ? "Update" : "Create"} Branch</Button>
+                            <Button simple color="primary" size="lg" type="submit">{_id ? "Update" : "Create"} Branch</Button>
                         </CardFooter>
                     </form>
                 </Card>
