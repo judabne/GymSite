@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listBranches, saveBranch, deleteBranch } from '../../../actions/branchesActions';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// core components
+import cssClasses from "./BranchesPage.module.css";
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
@@ -15,7 +15,6 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import SneakingComponent from "../SneakingComponent/SneakingComponent"
-// assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import bgimage from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
@@ -102,12 +101,8 @@ export default function BranchesPage(props) {
                                                     <thead>
                                                         <tr>
                                                             <th>Location</th>
-                                                            {window.innerWidth >= 768 ?
-                                                                <>
-                                                                    <th>Description</th>
-                                                                    <th>Image</th>
-                                                                </>
-                                                                : null}
+                                                            <th className={cssClasses.DesktopOnly}>Description</th>
+                                                            <th className={cssClasses.DesktopOnly}>Image</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
