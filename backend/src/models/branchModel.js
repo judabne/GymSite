@@ -1,16 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-
-// create geolocation schema
-const geoSchema = new mongoose.Schema({
-    type: {
-        type: String,
-        default: "Point"
-    },
-    coordinates: {
-        type: [Number],
-        index: "2dsphere"
-    }
-})
+import geoSchema from './LocationModel';
 
 const branchSchema = new mongoose.Schema({
     branchCity: { type: String, required: true },
