@@ -16,11 +16,13 @@ import WorkPage from "views/FooterPages/WorkPage/WorkPage";
 import AboutPage from "views/FooterPages/AboutPage/AboutPage";
 import HomePage from "views/HomePage/HomePage";
 import PlansPage from "views/AdminPages/PlansPage/PlansPage.js";
+import BranchesPage from "views/AdminPages/BranchesPage/BranchesPage.js";
 import PlansBuyPage from "views/AccountPages/PlansBuyPage/PlansBuyPage";
 import PlanBuyPage from "views/AccountPages/PlanBuyPage/PlanBuyPage";
 import PlanBuyResult from "views/AccountPages/PlanBuyPage/PlanBuyResult/PlanBuyResult"
 import { Provider } from "react-redux";
 import store from './store';
+import BranchPage from "views/BranchPage/BranchPage";
 
 var hist = createBrowserHistory();
 
@@ -32,7 +34,9 @@ function App() {
         <Switch>
           {/* optimize so that header and footer don't rerender unnecessarily*/}
           <Route path="/admin/plans" component={PlansPage} />
+          <Route path="/admin/branches" component={BranchesPage} />
           <Route path="/about" component={AboutPage} />
+          <Route path="/branch/:id" component={BranchPage} />
           <Route path="/components" component={Components} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/jobs" component={WorkPage} />

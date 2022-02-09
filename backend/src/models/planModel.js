@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const planSchema = new mongoose.Schema({
     planName: { type: String, required: true, unique: true},
-    planDuration: {type: Number, requred: true},
+    planDuration: {type: Number, required: true},
     planPrice: {type: Number, required: true},
     planType: {type: String, default: "Regular"},
     planDescription: {type: String},

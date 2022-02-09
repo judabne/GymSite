@@ -73,8 +73,6 @@ export default function CheckoutForm(props) {
             <CardFooter className={classes.cardFooter}>
                 <Button simple color="warning" onClick={() => history.goBack()}>Go Back</Button>
                 <Button type="submit" color="primary" disabled={!stripe || waiting}>Purchase {plan && "for $" + plan.planPrice}</Button>
-                
-                
             </CardFooter>
         </form>
     );

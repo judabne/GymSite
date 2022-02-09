@@ -6,39 +6,32 @@ import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
 
 import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
+import BranchDisplay from "./BranchDisplay";
+import { useDispatch, useSelector } from "react-redux";
+import { listBranches } from "actions/branchesActions";
+import Danger from "components/Typography/Danger";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
 export default function BranchesSection() {
   const classes = useStyles();
-  const imageClasses = classNames(
-    classes.imgFluid,
-    classes.imgRounded,
-    classes.circularImg
-  );
-  const circular = classNames(
-    classes.circular,
-    classes.imgRaised,
-  )
 
-  const [branches, setBranches] = useState([]);
+  const branchesList = useSelector(state => state.branchesList);
+  const { loading, branches, error } = branchesList;
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get("/api/branches");
-      setBranches(data);
-    }
-    fetchData();
+    console.log(branches.length)
+    if (branches.length === 0)
+      dispatch(listBranches());
     return () => {
       //cleanup
     };
   }, [])
+
   return (
 
     <div className={classes.section}>
@@ -50,30 +43,14 @@ export default function BranchesSection() {
         relaxing at your hometown, you will find a branch near you.
       </h5>
       <div>
-        <GridContainer>
-          {
-            branches.map(branch => ( <GridItem key={branch._id} xs={12} sm={6} md={4} >
-                <Card plain>
-                  <GridItem xs={12} sm={12} md={7} className={classes.itemGrid}>
-                    <div className={circular}>
-                      <img src={branch.image} alt={branch.city + " image"} className={imageClasses} />
-                    </div>
-                  </GridItem>
-                  <h4 className={classes.cardTitle}>
-                    {branch.city}
-                    <br />
-                  </h4>
-                  <CardBody>
-                    <p className={classes.description}>
-                      {branch.description}
-                    </p>
-                  </CardBody>
-                  <CardFooter />
-                </Card>
-              </GridItem>)
-            )
-          }
-        </GridContainer>
+        {loading ? <h5 className={classes.description}><Loader /></h5> :
+          error ? <Danger>An error has occured while loading the branches. Please try again in a bit.</Danger> :
+            <GridContainer>
+              {
+                branches && branches.map(branch => <BranchDisplay branch={branch} key={branch._id} />)
+              }
+            </GridContainer>
+        }
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 import image from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -87,7 +88,7 @@ export default function RegisterPage(props) {
                     <h4>Create an account</h4>
                   </CardHeader>
                   <p className={classes.divider}><Link to="/login">Have an account? login here</Link></p>
-                  {loading && <p className={classes.divider}>Loading...</p>}
+                  {loading && <p className={classes.divider}><Loader /></p>}
                   {error && <Danger><p className={classes.divider}>Error creating an account. Please try again.</p></Danger>}
                   <CardBody>
                     <CustomInput

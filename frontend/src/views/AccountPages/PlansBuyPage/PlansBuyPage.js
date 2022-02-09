@@ -20,6 +20,7 @@ import image from "assets/img/bg7.jpg";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import { Link } from "react-router-dom";
 import PurchaseableMembership from "components/PurchaseableMembership/PurchaseableMembership";
+import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
@@ -34,7 +35,8 @@ export default function PlanBuyPage(props) {
     
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(activePlans());
+        if (plans.length === 0)
+            dispatch(activePlans());
         return () => {
             //
         };
@@ -69,9 +71,9 @@ export default function PlanBuyPage(props) {
                         </GridContainer>
                         <CardBody>
                             <Primary><h5>You can purchase memberships up to a year ahead</h5></Primary>
-                            {loading ? <p className={classes.divider}>Loading...</p> :
+                            {loading ? <p className={classes.divider}><Loader /></p> :
                                 error ? <Danger>Error retrieving data</Danger> :
-                                    <GridContainer justify="left">
+                                    <GridContainer justify="flex-start">
                                         {plans.map(plan =>
                                             <PurchaseableMembership key={plan._id} plan={plan} />
                                         )}

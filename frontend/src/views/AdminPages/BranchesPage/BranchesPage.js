@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listPlans, savePlan, deletePlan } from '../../../actions/plansActions';
-// @material-ui/core components
+import { listBranches, saveBranch, deleteBranch } from '../../../actions/branchesActions';
 import { makeStyles } from "@material-ui/core/styles";
-// core components
+import cssClasses from "./BranchesPage.module.css";
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
@@ -15,39 +14,38 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import SneakingComponent from "../SneakingComponent/SneakingComponent"
-// assets
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-import image from "assets/img/bg7.jpg";
+import bgimage from "assets/img/bg7.jpg";
 import Danger from "components/Typography/Danger";
-import PlanComponent from "./PlanComponent.js/PlanComponent";
-import PlanEditComponent from "./PlanEditComponent/PlanEditComponent";
+import BranchComponent from "./BranchComponent/BranchComponent";
+import BranchEditComponent from "./BranchEditComponent/BranchEditComponent";
 import Loader from "components/Loader/Loader";
 
 const useStyles = makeStyles(styles);
 
-export default function PlansPage(props) {
+export default function BranchesPage(props) {
 
     const classes = useStyles();
     const { ...rest } = props;
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [plan, setPlan] = useState();
+    const [branch, setBranch] = useState();
 
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin
-    const plansList = useSelector(state => state.plansList);
-    const { loading, plans, error } = plansList;
-    const planSave = useSelector(state => state.planSave);
-    const { loading: loadingSave, success: successSave, error: errorSave } = planSave;
-    const planDelete = useSelector(state => state.planDelete);
-    const { success: successDelete } = planDelete;
+    const branchesList = useSelector(state => state.branchesList);
+    const { loading, branches, error } = branchesList;
+    const branchSave = useSelector(state => state.branchSave);
+    const { loading: loadingSave, success: successSave, error: errorSave } = branchSave;
+    const branchDelete = useSelector(state => state.branchDelete);
+    const { success: successDelete } = branchDelete;
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (successSave) {
             setModalVisible(false);
         }
-        dispatch(listPlans());
+        dispatch(listBranches());
         return () => {
             //
         };
@@ -56,13 +54,13 @@ export default function PlansPage(props) {
     const closeModal = () => {
         setModalVisible(false);
     }
-    const openModal = (plan) => {
-        setPlan(plan);
+    const openModal = (branch) => {
+        setBranch(branch);
         setModalVisible(true);
     }
 
-    const deleteHandler = (plan) => {
-        dispatch(deletePlan(plan._id));
+    const deleteHandler = (branch) => {
+        dispatch(deleteBranch(branch._id));
     }
 
     return (
@@ -79,7 +77,7 @@ export default function PlansPage(props) {
                     <div
                         className={classes.pageHeader}
                         style={{
-                            backgroundImage: "url(" + image + ")",
+                            backgroundImage: "url(" + bgimage + ")",
                             backgroundSize: "cover",
                             backgroundPosition: "top center",
                         }}
@@ -91,7 +89,7 @@ export default function PlansPage(props) {
                                         <GridItem xs={12} sm={12} md={11}>
                                             {/* did this to keep the centered styling as in login page, while allowing the body to go wide */}
                                             <CardHeader color="primary" className={classes.cardHeader}>
-                                                <h4>Plans Managmenet</h4>
+                                                <h4>Branches Managmenet</h4>
                                             </CardHeader>
                                         </GridItem>
                                     </GridContainer>
@@ -101,42 +99,34 @@ export default function PlansPage(props) {
                                                 <table className="table" style={{ width: "100%" }}>
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            {window.innerWidth >= 768 ?
-                                                                <>
-                                                                    <th>Type</th>
-                                                                    <th>Description</th>
-                                                                    <th>Duration</th>
-                                                                    <th>Price</th>
-                                                                    <th>Availability</th>
-                                                                </>
-                                                                : null}
+                                                            <th>Location</th>
+                                                            <th className={cssClasses.DesktopOnly}>Description</th>
+                                                            <th className={cssClasses.DesktopOnly}>Image</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {plans.map(plan => (
-                                                            <PlanComponent
-                                                                key={plan._id}
-                                                                plan={plan}
-                                                                onEditClick={() => openModal(plan)}
-                                                                onDeleteClick={() => deleteHandler(plan)}
-                                                            />
+                                                        {branches.map(branch => (
+                                                            <BranchComponent
+                                                                key={branch._id}
+                                                                branch={branch}
+                                                                onEditClick={() => openModal(branch)}
+                                                                onDeleteClick={() => deleteHandler(branch)} />
                                                         ))}
                                                     </tbody>
                                                 </table>
                                         }
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
-                                        <Button type="button" simple size="lg" color="primary" onClick={() => openModal({})} disabled={modalVisible}>New Plan</Button>
+                                        <Button type="button" simple size="lg" color="primary" onClick={() => openModal()} disabled={modalVisible}>New Branch</Button>
                                     </CardFooter>
                                 </form>
                             </Card>
 
-                            {/* Create or update plan card */}
+                            {/* Create or update branch card */}
                             {modalVisible &&
-                                <PlanEditComponent
-                                    plan={plan}
+                                <BranchEditComponent
+                                    branch={branch}
                                     loadingSave={loadingSave}
                                     errorSave={errorSave}
                                     onCloseClick={() => closeModal()} />

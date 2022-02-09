@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React from "react";
+import {Link} from "react-router-dom"
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
@@ -32,12 +33,12 @@ export default function Footer(props) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="/about"
+              <Link
+                to="/about"
                 className={classes.block}
               >
                 About us
-              </a>
+              </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
@@ -49,21 +50,21 @@ export default function Footer(props) {
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className={classes.block}
                 // target="_blank"
               >
                 Contact Us
-              </a>
+              </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="/jobs"
+              <Link
+                to="/jobs"
                 className={classes.block}
               >
                 Work with us
-              </a>
+              </Link>
             </ListItem>
           </List>
         </div>
